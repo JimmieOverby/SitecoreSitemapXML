@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitemap.XML", "Sitemap.XML.csproj", "{B626A91F-590A-49D3-AE5C-798B2F05FDE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B626A91F-590A-49D3-AE5C-798B2F05FDE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B626A91F-590A-49D3-AE5C-798B2F05FDE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B626A91F-590A-49D3-AE5C-798B2F05FDE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B626A91F-590A-49D3-AE5C-798B2F05FDE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

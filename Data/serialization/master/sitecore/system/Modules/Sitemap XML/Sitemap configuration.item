@@ -1,0 +1,86 @@
+----item----
+version: 1
+id: {2316437B-0EDB-4BFE-B02C-ACF14707C0B4}
+database: master
+path: /sitecore/system/Modules/Sitemap XML/Sitemap configuration
+parent: {6003D67E-0000-4A4D-BFB1-11408B9ADCFD}
+name: Sitemap configuration
+master: {00000000-0000-0000-0000-000000000000}
+template: {B1D42AAC-82EF-43EF-9EEA-784F655B8F04}
+templatekey: Sitemap configuration
+
+----field----
+field: {1172F251-DAD4-4EFB-A329-0C63500E4F1E}
+name: __Masters
+key: __masters
+content-length: 38
+
+{122FF533-9564-4ADA-A1C8-E7B1385B89DE}
+----version----
+language: en
+version: 1
+revision: 2a234b4a-4dc5-4de5-b8e2-d294ed7bebcc
+
+----field----
+field: {6BF47032-530C-4DF3-9B29-0849E0990319}
+name: Search engines
+key: search engines
+content-length: 116
+
+{41ECB6BD-ADE0-474E-82E6-B104AD4C6ADC}|{3B4FF72D-C4C1-4CB1-B2CB-679669FD1310}|{B1549268-0C35-4F80-ACA2-A66979A130C5}
+----field----
+field: {1452D535-BA8B-4A66-9A87-67D05A6E2058}
+name: Enabled templates
+key: enabled templates
+content-length: 116
+
+{76036F5E-CBCE-46D1-AF0A-4143F9B557AA}|{54C60AED-31AF-400E-8106-17C3BF28E3A1}|{070924B1-A31A-4F3D-AAAE-B40C4D4FC59C}
+----field----
+field: {76002E61-2397-4B4D-84B2-98C2A8468D5A}
+name: Exclude items
+key: exclude items
+content-length: 0
+
+
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 15
+
+20090331T172600
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+2a234b4a-4dc5-4de5-b8e2-d294ed7bebcc
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 34
+
+20100709T103701:634142686210541582
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin

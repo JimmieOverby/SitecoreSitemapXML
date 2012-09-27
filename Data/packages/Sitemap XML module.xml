@@ -1,0 +1,80 @@
+<project>
+  <Metadata>
+    <metadata>
+      <PackageName>Sitemap XML module</PackageName>
+      <Author>Sitecore A/S</Author>
+      <Version>1.0.0</Version>
+      <Revision />
+      <License>&lt;p&gt;&lt;strong&gt;SITECORE SHARED SOURCE LICENSE&lt;/strong&gt; &lt;br&gt;&lt;br&gt;This License governs use of the accompanying Software, and your use of the Software constitutes acceptance of this license. &lt;br&gt;&lt;br&gt;Subject to the restrictions in this license, you may use this Software for any commercial or non-commercial purpose in Sitecore solutions only. You may also distribute this Software with books or other teaching materials, or publish the Software on websites, that are intended to teach the use of the Software in relation to Sitecore. &lt;br&gt;&lt;br&gt;You may not use or distribute this Software or any derivative works in any form for uses other than with Sitecore. &lt;br&gt;&lt;br&gt;You may modify this Software and distribute the modified Software as long as it relates to Sitecore, however, you may not grant rights to the Software or derivative works that are broader than those provided by this License. For example, you may not distribute modifications of the Software under terms that would permit uses not relating to Sitecore, or under terms that purport to require the Software or derivative works to be sublicensed to others. &lt;br&gt;&lt;br&gt;You may use any information in intangible form that you remember after accessing the Software. However, this right does not grant you a license to any of Sitecore's copyrights or patents for anything you might create using such information. &lt;br&gt;&lt;br&gt;In return, we simply require that you agree: &lt;/p&gt;&lt;ol type="1"&gt;&lt;li class="normal"&gt;Not to remove any copyright or other notices from the Software. &lt;/li&gt;&lt;li class="normal"&gt;That if you distribute the Software in source or object form, you will include a verbatim copy of this license. &lt;/li&gt;&lt;li class="normal"&gt;That if you distribute derivative works of the Software in source code form you do so only under a license that includes all of the provisions of this License, and if you distribute derivative works of the Software solely in object form you do so only under a license that complies with this License. &lt;/li&gt;&lt;li class="normal"&gt;That if you have modified the Software or created derivative works, and distribute such modifications or derivative works, you will cause the modified files to carry prominent notices so that recipients know that they are not receiving the original Software. Such notices must state: (i) that you have changed the Software; and (ii) the date of any changes. &lt;/li&gt;&lt;li class="normal"&gt;THAT THE SOFTWARE COMES "AS IS", WITH NO WARRANTIES. THIS MEANS NO EXPRESS, IMPLIED OR STATUTORY WARRANTY, INCLUDING WITHOUT LIMITATION, WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE OR ANY WARRANTY OF TITLE OR NON-INFRINGEMENT. ALSO, YOU MUST PASS THIS DISCLAIMER ON WHENEVER YOU DISTRIBUTE THE SOFTWARE OR DERIVATIVE WORKS. &lt;/li&gt;&lt;li class="normal"&gt;THAT SITECORE WILL NOT BE LIABLE FOR ANY DAMAGES RELATED TO THE SOFTWARE OR THIS LICENSE, INCLUDING DIRECT, INDIRECT, SPECIAL, CONSEQUENTIAL OR INCIDENTAL DAMAGES, TO THE MAXIMUM EXTENT THE LAW PERMITS, NO MATTER WHAT LEGAL THEORY IT IS BASED ON. ALSO, YOU MUST PASS THIS LIMITATION OF LIABILITY ON WHENEVER YOU DISTRIBUTE THE SOFTWARE OR DERIVATIVE WORKS. &lt;/li&gt;&lt;li class="normal"&gt;That if you sue anyone over patents that you think may apply to the Software or anyone's use of the Software, your license to the Software ends automatically. &lt;/li&gt;&lt;li class="normal"&gt;That your rights under the License end automatically if you breach it in any way. &lt;/li&gt;&lt;li class="normal"&gt;Sitecore reserves all rights not expressly granted to you in this license.&lt;/li&gt;&lt;/ol&gt;</License>
+      <Comment />
+      <Attributes />
+      <Readme>After installation:
+1) Perform publishing
+2) Configure Sitemap XML using:
+     Configuration item "/sitecore/system/Modules/Sitemap XML/Sitemap configuration":
+     Configuration file "App_Config\Include\SitemapXML.xml"</Readme>
+      <Publisher>Sitecore A/S</Publisher>
+      <PostStep />
+      <PackageID />
+    </metadata>
+  </Metadata>
+  <SaveProject>True</SaveProject>
+  <Sources>
+    <xitems>
+      <Entries>
+        <x-item>/core/sitecore/content/Applications/SitemapXML/{931B9990-F327-4234-A0DB-7CA7E87D3BCE}/invariant/0</x-item>
+        <x-item>/core/sitecore/content/Documents and settings/All users/Start menu/Programs/Sitemap XML Manager/{CAD7BE7E-D383-4D5E-88B7-BB971CBF6394}/invariant/0</x-item>
+        <x-item>/core/sitecore/content/Documents and settings/All users/Start menu/Programs/Sitemap XML Manager/Sitemap XML Manager/{7388A1AC-40A0-413B-813B-C4597DB94462}/invariant/0</x-item>
+        <x-item>/core/sitecore/layout/Layouts/Applications/SitemapXML/{D854F540-5179-40B8-BCBF-AFBFA64E9D5E}/invariant/0</x-item>
+        <x-item>/master/sitecore/system/Modules/Sitemap XML/{6003D67E-0000-4A4D-BFB1-11408B9ADCFD}/invariant/0</x-item>
+        <x-item>/master/sitecore/system/Modules/Sitemap XML/Sitemap configuration/{2316437B-0EDB-4BFE-B02C-ACF14707C0B4}/invariant/0</x-item>
+        <x-item>/master/sitecore/system/Modules/Sitemap XML/Sitemap configuration/Google/{41ECB6BD-ADE0-474E-82E6-B104AD4C6ADC}/invariant/0</x-item>
+        <x-item>/master/sitecore/system/Modules/Sitemap XML/Sitemap configuration/Live search/{3B4FF72D-C4C1-4CB1-B2CB-679669FD1310}/invariant/0</x-item>
+        <x-item>/master/sitecore/system/Modules/Sitemap XML/Sitemap configuration/Yahoo/{B1549268-0C35-4F80-ACA2-A66979A130C5}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/{3BF9EE49-E693-45FE-B10D-D5D684484519}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/{B1D42AAC-82EF-43EF-9EEA-784F655B8F04}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Configuration/{4D81B455-5970-4CCE-9C90-D797F19C8A00}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Configuration/Enabled templates/{1452D535-BA8B-4A66-9A87-67D05A6E2058}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Configuration/Exclude items/{76002E61-2397-4B4D-84B2-98C2A8468D5A}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Data/{AEEFC911-1513-4C35-B212-9299CDCA253F}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Data/Search engines/{6BF47032-530C-4DF3-9B29-0849E0990319}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/Sitemap searchengine/{122FF533-9564-4ADA-A1C8-E7B1385B89DE}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/Sitemap searchengine/Data/{5CFBD092-F6A8-4FED-A0BF-5B94B0CECB00}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/Sitemap searchengine/Data/HttpRequestString/{8D87E400-2450-4CDE-91B7-ED2F8183F909}/invariant/0</x-item>
+      </Entries>
+      <SkipVersions>False</SkipVersions>
+      <Converter>
+        <ItemToEntryConverter>
+          <Transforms />
+        </ItemToEntryConverter>
+      </Converter>
+      <Include />
+      <Exclude />
+      <Name>Items</Name>
+    </xitems>
+    <xfiles>
+      <Entries>
+        <x-item>/App_Config/Include/SitemapXML.config</x-item>
+        <x-item>/bin/Sitemap.XML.dll</x-item>
+        <x-item>/sitecore modules/Shell/sitemap XML/SitemapManager.xml</x-item>
+      </Entries>
+      <Converter>
+        <FileToEntryConverter>
+          <Root>/</Root>
+          <Transforms />
+        </FileToEntryConverter>
+      </Converter>
+      <Include />
+      <Exclude />
+      <Name>Files</Name>
+    </xfiles>
+  </Sources>
+  <Converter>
+    <TrivialConverter>
+      <Transforms />
+    </TrivialConverter>
+  </Converter>
+  <Include />
+  <Exclude />
+  <Name />
+</project>
