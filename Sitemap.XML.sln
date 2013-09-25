@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitemap.XML", "Sitemap.XML.csproj", "{B626A91F-590A-49D3-AE5C-798B2F05FDE1}"
 EndProject
 Global
