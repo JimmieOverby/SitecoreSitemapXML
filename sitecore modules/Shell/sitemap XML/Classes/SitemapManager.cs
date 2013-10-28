@@ -108,6 +108,8 @@ namespace Sitecore.Modules.SitemapXML
 
         public void RegisterSitemapToRobotsFile()
         {
+            if (!SitemapManagerConfiguration.GenerateRobotsFile)
+                return;
 
             string robotsPath = MainUtil.MapPath(string.Concat("/", "robots.txt"));
             StringBuilder sitemapContent = new StringBuilder(string.Empty);

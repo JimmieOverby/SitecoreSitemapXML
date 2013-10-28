@@ -84,6 +84,18 @@ namespace Sitecore.Modules.SitemapXML
                 return !string.IsNullOrEmpty(production) && (production.ToLower() == "true" || production == "1");
             }
         }
+
+        public static bool GenerateRobotsFile
+        {
+            get
+            {
+                var generateRobotsFile = GetValueByName("generateRobotsFile");
+
+                // Defaults to true if setting is missing from config
+                return string.IsNullOrEmpty(generateRobotsFile) || (generateRobotsFile.ToLower() == "true" || generateRobotsFile == "1");
+            }
+        }
+
         #endregion properties
 
         private static string GetValueByName(string name)
