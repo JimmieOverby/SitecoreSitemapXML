@@ -119,9 +119,9 @@ namespace Sitecore.Modules.SitemapXML
             }
 
             StreamWriter sw = new StreamWriter(robotsPath, false);
-            foreach (string sitemapUrl in m_Sites.Values)
+            foreach (DictionaryEntry site in m_Sites)
             {
-                string sitemapLine = string.Concat("Sitemap: ", sitemapUrl);
+                string sitemapLine = string.Format("Sitemap: http://{0}/{1}", SitemapManagerConfiguration.GetServerUrlBySite(site.Key.ToString()), site.Value);
                 if (!sitemapContent.ToString().Contains(sitemapLine))
                 {
                     sitemapContent.AppendLine(sitemapLine);
