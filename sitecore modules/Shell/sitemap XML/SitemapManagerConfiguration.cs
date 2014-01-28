@@ -76,6 +76,14 @@ namespace Sitecore.Modules.SitemapXML
             }
         }
 
+        public static string ExcludeByQuery
+        {
+            get
+            {
+                return GetValueByNameFromDatabase("Exclude by query");
+            }
+        }
+
         public static bool IsProductionEnvironment
         {
             get
