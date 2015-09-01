@@ -25,6 +25,7 @@ using System.Linq;
 using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Data.Items;
+using System.Collections;
 
 namespace Sitecore.Modules.SitemapXML
 {
@@ -32,11 +33,14 @@ namespace Sitecore.Modules.SitemapXML
     {
         public void RefreshSitemap(object sender, EventArgs args)
         {
-            SitemapManager sitemapManager = new SitemapManager();
-
-            sitemapManager.SubmitSitemapToSearchenginesByHttp();
-            sitemapManager.RegisterSitemapToRobotsFile();
-
+            var sites = SitemapManagerConfiguration.GetSites();
+            foreach (DictionaryEntry site in sites)
+            {
+                var config = new SitemapManagerConfiguration(site.Key.ToString(), site.Value.ToString());
+                var sitemapManager = new SitemapManager(config);
+                sitemapManager.SubmitSitemapToSearchenginesByHttp();
+                sitemapManager.RegisterSitemapToRobotsFile();
+            }
         }
     }
 }

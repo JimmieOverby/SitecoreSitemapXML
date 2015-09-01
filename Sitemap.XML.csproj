@@ -47,7 +47,22 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Sitecore.Kernel" />
+    <Reference Include="Sitecore.Buckets">
+      <HintPath>..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.Buckets.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sitecore.ContentSearch">
+      <HintPath>..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.ContentSearch.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sitecore.ContentSearch.Linq">
+      <HintPath>..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.ContentSearch.Linq.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sitecore.Kernel">
+      <HintPath>..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.Kernel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -63,7 +78,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Links\LowerCaseLinkProvider.cs" />
+    <Compile Include="Models\SitemapItem.cs" />
     <Compile Include="sitecore modules\Shell\sitemap XML\Classes\SitemapHandler.cs" />
     <Compile Include="sitecore modules\Shell\sitemap XML\Classes\SitemapManager.cs" />
     <Compile Include="sitecore modules\Shell\sitemap XML\Classes\SitemapManagerForm.cs" />
@@ -75,9 +90,10 @@
     </Content>
     <Content Include="sitecore modules\Shell\sitemap XML\SitemapManager.xml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Properties\" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
+    <None Include="Properties\PublishProfiles\test.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

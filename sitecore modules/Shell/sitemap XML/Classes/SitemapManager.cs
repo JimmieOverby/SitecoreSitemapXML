@@ -32,14 +32,18 @@ using System.Text;
 using System.Linq;
 using System.Collections.Specialized;
 using System.Collections;
+using Sitecore.Data.Fields;
+using Sitecore.Buckets.Managers;
+using Sitecore.ContentSearch;
+using Sitecore.ContentSearch.SearchTypes;
+using Sitemp_XML.Models;
 
 namespace Sitecore.Modules.SitemapXML
 {
     public class SitemapManager
     {
         //private static string sitemapUrl;
-
-        private static StringDictionary m_Sites;
+        private readonly SitemapManagerConfiguration _config;
         public Database Db
         {
             get
@@ -49,26 +53,26 @@ namespace Sitecore.Modules.SitemapXML
             }
         }
 
-        public SitemapManager()
+        public SitemapManager(SitemapManagerConfiguration config)
         {
-            m_Sites = SitemapManagerConfiguration.GetSites();
-            foreach (DictionaryEntry site in m_Sites)
-            {
-                BuildSiteMap(site.Key.ToString(), site.Value.ToString());
-            }
+            Assert.IsNotNull(config, "config");
+            _config = config;
+                BuildSiteMap();
         }
 
 
-        private void BuildSiteMap(string sitename, string sitemapUrlNew)
+        private void BuildSiteMap()
         {
-            Site site = Sitecore.Sites.SiteManager.GetSite(sitename);
-            SiteContext siteContext = Factory.GetSite(sitename);
+            Site site = Sitecore.Sites.SiteManager.GetSite(_config.SiteName);
+            SiteContext siteContext = Factory.GetSite(_config.SiteName);
             string rootPath = siteContext.StartPath;
 
-            List<Item> items = GetSitemapItems(rootPath);
+            List<SitemapItem> items = GetSitemapItems(rootPath);
+
+            
 
 
-            string fullPath = MainUtil.MapPath(string.Concat("/", sitemapUrlNew));
+            string fullPath = MainUtil.MapPath(string.Concat("/", _config.FileName));
             string xmlContent = this.BuildSitemapXML(items, site);
 
             StreamWriter strWriter = new StreamWriter(fullPath, false);
@@ -85,7 +89,7 @@ namespace Sitecore.Modules.SitemapXML
                 return false;
 
             bool result = false;
-            Item sitemapConfig = Db.Items[SitemapManagerConfiguration.SitemapConfigurationItemPath];
+            Item sitemapConfig = Db.Items[_config.SitemapConfigurationItemPath];
 
             if (sitemapConfig != null)
             {
@@ -96,8 +100,8 @@ namespace Sitecore.Modules.SitemapXML
                     if (engine != null)
                     {
                         string engineHttpRequestString = engine.Fields["HttpRequestString"].Value;
-                        foreach (string sitemapUrl in m_Sites.Values)
-                            this.SubmitEngine(engineHttpRequestString, sitemapUrl);
+                        var filePath = !SitemapManagerConfiguration.GetServerUrl(_config.SiteName).EndsWith("/") ? SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + "/" : SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + _config.FileName;
+                        SubmitEngine(engineHttpRequestString, filePath);
                     }
                 }
                 result = true;
@@ -119,19 +123,16 @@ namespace Sitecore.Modules.SitemapXML
             }
 
             StreamWriter sw = new StreamWriter(robotsPath, false);
-            foreach (string sitemapUrl in m_Sites.Values)
+            string sitemapLine = string.Concat("Sitemap: ", _config.FileName);
+            if (!sitemapContent.ToString().Contains(sitemapLine))
             {
-                string sitemapLine = string.Concat("Sitemap: ", sitemapUrl);
-                if (!sitemapContent.ToString().Contains(sitemapLine))
-                {
-                    sitemapContent.AppendLine(sitemapLine);
-                }
+                sitemapContent.AppendLine(sitemapLine);
             }
             sw.Write(sitemapContent.ToString());
             sw.Close();
         }
 
-        private string BuildSitemapXML(List<Item> items, Site site)
+        private string BuildSitemapXML(List<SitemapItem> items, Site site)
         {
             XmlDocument doc = new XmlDocument();
 
@@ -145,7 +146,7 @@ namespace Sitecore.Modules.SitemapXML
             doc.AppendChild(urlsetNode);
 
 
-            foreach (Item itm in items)
+            foreach (var itm in items)
             {
                 doc = this.BuildSitemapItem(doc, itm, site);
             }
@@ -153,11 +154,8 @@ namespace Sitecore.Modules.SitemapXML
             return doc.OuterXml;
         }
 
-        private XmlDocument BuildSitemapItem(XmlDocument doc, Item item, Site site)
+        private XmlDocument BuildSitemapItem(XmlDocument doc, SitemapItem item, Site site)
         {
-            string url = HtmlEncode(this.GetItemUrl(item, site));
-            string lastMod = HtmlEncode(item.Statistics.Updated.ToString("yyyy-MM-ddTHH:mm:sszzz"));
-
             XmlNode urlsetNode = doc.LastChild;
 
             XmlNode urlNode = doc.CreateElement("url");
@@ -165,77 +163,27 @@ namespace Sitecore.Modules.SitemapXML
 
             XmlNode locNode = doc.CreateElement("loc");
             urlNode.AppendChild(locNode);
-            locNode.AppendChild(doc.CreateTextNode(url));
+            locNode.AppendChild(doc.CreateTextNode(item.Location));
 
             XmlNode lastmodNode = doc.CreateElement("lastmod");
             urlNode.AppendChild(lastmodNode);
-            lastmodNode.AppendChild(doc.CreateTextNode(lastMod));
+            lastmodNode.AppendChild(doc.CreateTextNode(item.LastModified));
+
+            if (!string.IsNullOrWhiteSpace(item.ChangeFrequency))
+            {
+                XmlNode changeFrequencyNode = doc.CreateElement("changefreq");
+                urlNode.AppendChild(changeFrequencyNode);
+                changeFrequencyNode.AppendChild(doc.CreateTextNode(item.ChangeFrequency));
+            }
+
+            if (!string.IsNullOrWhiteSpace(item.Priority))
+            {
+                var priorityNode = doc.CreateElement("priority");
+                urlNode.AppendChild(priorityNode);
+                priorityNode.AppendChild(doc.CreateTextNode(item.Priority));
+            }
 
             return doc;
-        }
-
-        private string GetItemUrl(Item item, Site site)
-        {
-            Sitecore.Links.UrlOptions options = Sitecore.Links.UrlOptions.DefaultOptions;
-
-            options.SiteResolving = Sitecore.Configuration.Settings.Rendering.SiteResolving;
-            options.Site = SiteContext.GetSite(site.Name);
-            options.AlwaysIncludeServerUrl = false;
-
-            string url = Sitecore.Links.LinkManager.GetItemUrl(item, options);
-
-            string serverUrl = SitemapManagerConfiguration.GetServerUrlBySite(site.Name);
-            if (serverUrl.Contains("http://"))
-            {
-                serverUrl = serverUrl.Substring("http://".Length);
-            }
-
-            StringBuilder sb = new StringBuilder();
-
-            if (!string.IsNullOrEmpty(serverUrl))
-            {
-                if (url.Contains("://") && !url.Contains("http"))
-                {
-                    sb.Append("http://");
-                    sb.Append(serverUrl);
-                    if (url.IndexOf("/", 3) > 0)
-                        sb.Append(url.Substring(url.IndexOf("/", 3)));
-                }
-                else
-                {
-                    sb.Append("http://");
-                    sb.Append(serverUrl);
-                    sb.Append(url);
-                }
-            }
-            else if (!string.IsNullOrEmpty(site.Properties["hostname"]))
-            {
-                sb.Append("http://");
-                sb.Append(site.Properties["hostname"]);
-                sb.Append(url);
-            }
-            else
-            {
-                if (url.Contains("://") && !url.Contains("http"))
-                {
-                    sb.Append("http://");
-                    sb.Append(url);
-                }
-                else
-                {
-                    sb.Append(Sitecore.Web.WebUtil.GetFullUrl(url));
-                }
-            }
-
-            return sb.ToString();
-
-        }
-
-        private static string HtmlEncode(string text)
-        {
-            string result = HttpUtility.HtmlEncode(text);
-
-            return result;
         }
 
         private void SubmitEngine(string engine, string sitemapUrl)
@@ -243,7 +191,7 @@ namespace Sitecore.Modules.SitemapXML
             //Check if it is not localhost because search engines returns an error
             if (!sitemapUrl.Contains("http://localhost"))
             {
-                string request = string.Concat(engine, HtmlEncode(sitemapUrl));
+                string request = string.Concat(engine, SitemapItem.HtmlEncode(sitemapUrl));
 
                 System.Net.HttpWebRequest httpRequest = (System.Net.HttpWebRequest)System.Net.HttpWebRequest.Create(request);
                 try
@@ -264,10 +212,10 @@ namespace Sitecore.Modules.SitemapXML
         }
 
 
-        private List<Item> GetSitemapItems(string rootPath)
+        private List<SitemapItem> GetSitemapItems(string rootPath)
         {
-            string disTpls = SitemapManagerConfiguration.EnabledTemplates;
-            string exclNames = SitemapManagerConfiguration.ExcludeItems;
+            string disTpls = _config.EnabledTemplates;
+            string exclNames = _config.ExcludeItems;
 
 
             Database database = Factory.GetDatabase(SitemapManagerConfiguration.WorkingDatabase);
@@ -280,19 +228,59 @@ namespace Sitecore.Modules.SitemapXML
             {
                 descendants = contentRoot.Axes.GetDescendants();
             }
+
+            // getting shared content
+            var sharedItems = new List<Item>();
+            var sharedModels = new List<SitemapItem>();
+            var sharedDefinitions = Db.SelectItems("fast:"+_config.SitemapConfigurationItemPath + "/Shared Content/*");
+             var site = Factory.GetSite(_config.SiteName);
+             List<string> enabledTemplates = this.BuildListFromString(disTpls, '|');
+             List<string> excludedNames = this.BuildListFromString(exclNames, '|');
+            foreach (var sharedDefinition in sharedDefinitions)
+            {
+                if (string.IsNullOrWhiteSpace(sharedDefinition["Content Location"]) || string.IsNullOrWhiteSpace(sharedDefinition["Parent Item"]))
+                    continue;
+                var contentLocation = ((DatasourceField)sharedDefinition.Fields["Content Location"]).TargetItem;
+                var parentItem = ((DatasourceField)sharedDefinition.Fields["Parent Item"]).TargetItem;
+
+                if (BucketManager.IsBucket(contentLocation))
+                {
+                    var index = ContentSearchManager.GetIndex(new SitecoreIndexableItem(contentLocation));
+                    using (var searchContext = index.CreateSearchContext())
+                    {
+                        var searchResultItem =
+                            searchContext.GetQueryable<SearchResultItem>().Where(item => item.Paths.Contains(contentLocation.ID))
+                            .ToList();
+                        sharedItems.AddRange(searchResultItem.Select(i=>i.GetItem()));
+                    }
+                }
+                else
+                {
+                    sharedItems.AddRange(contentLocation.Children);
+                }
+
+                var cleanedSharedItems = from itm in sharedItems
+                                         where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
+                                                  !excludedNames.Contains(itm.ID.ToString())
+                                         select itm;
+                var sharedSitemapItems = cleanedSharedItems.Select(i => new SitemapItem(i, site, parentItem));
+                sharedModels.AddRange(sharedSitemapItems);
+            }
+
             List<Item> sitemapItems = descendants.ToList();
             sitemapItems.Insert(0, contentRoot);
 
-            List<string> enabledTemplates = this.BuildListFromString(disTpls, '|');
-            List<string> excludedNames = this.BuildListFromString(exclNames, '|');
+            
 
 
             var selected = from itm in sitemapItems
                            where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
                                     !excludedNames.Contains(itm.ID.ToString())
                            select itm;
-
-            return selected.ToList();
+           
+            var selectedModels = selected.Select(i => new SitemapItem(i, site, null)).ToList();
+            selectedModels.AddRange(sharedModels);
+            return selectedModels;
         }
 
         private List<string> BuildListFromString(string str, char separator)

@@ -25,14 +25,28 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Xml;
 using System.Collections.Specialized;
+using Sitecore.Diagnostics;
 
 namespace Sitecore.Modules.SitemapXML
 {
     public class SitemapManagerConfiguration
     {
+        #region Fields
+
+        private readonly string _siteName;
+        private readonly string _fileName;
+
+        #endregion
+
+        public SitemapManagerConfiguration(string siteName, string fileName)
+        {
+            Assert.IsNotNullOrEmpty(siteName, "siteName");
+            _siteName = siteName;
+            Assert.IsNotNullOrEmpty(fileName, "fileName");
+            _fileName = fileName;
+        }
+
         #region properties
-
-
 
         public static string XmlnsTpl
         {
@@ -42,8 +56,6 @@ namespace Sitecore.Modules.SitemapXML
             }
         }
 
-
-
         public static string WorkingDatabase
         {
             get
@@ -52,15 +64,15 @@ namespace Sitecore.Modules.SitemapXML
             }
         }
 
-        public static string SitemapConfigurationItemPath
+        public string SitemapConfigurationItemPath
         {
             get
             {
-                return GetValueByName("sitemapConfigurationItemPath");
+                return GetValueByName("sitemapConfigurationItemPath")+_siteName;
             }
         }
 
-        public static string EnabledTemplates
+        public string EnabledTemplates
         {
             get
             {
@@ -68,7 +80,7 @@ namespace Sitecore.Modules.SitemapXML
             }
         }
 
-        public static string ExcludeItems
+        public string ExcludeItems
         {
             get
             {
@@ -84,6 +96,24 @@ namespace Sitecore.Modules.SitemapXML
                 return !string.IsNullOrEmpty(production) && (production.ToLower() == "true" || production == "1");
             }
         }
+
+        public string SiteName
+        {
+            get
+            {
+                return _siteName;
+            }
+        }
+
+        public string FileName
+        {
+            get
+            {
+                return _fileName;
+            }
+        }
+             
+        
         #endregion properties
 
         private static string GetValueByName(string name)
@@ -103,7 +133,7 @@ namespace Sitecore.Modules.SitemapXML
             return result;
         }
 
-        private static string GetValueByNameFromDatabase(string name)
+        private string GetValueByNameFromDatabase(string name)
         {
             string result = string.Empty;
 
@@ -134,14 +164,14 @@ namespace Sitecore.Modules.SitemapXML
             return sites;
         }
 
-        public static string GetServerUrlBySite(string name)
+        public static string GetServerUrl(string siteName)
         {
             string result = string.Empty;
 
             foreach (XmlNode node in Factory.GetConfigNodes("sitemapVariables/sites/site"))
             {
 
-                if (XmlUtil.GetAttribute("name", node) == name)
+                if (XmlUtil.GetAttribute("name", node) == siteName)
                 {
                     result = XmlUtil.GetAttribute("serverUrl", node);
                     break;

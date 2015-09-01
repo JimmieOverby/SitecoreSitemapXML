@@ -2,7 +2,7 @@
 <control xmlns:def="Definition" xmlns="http://schemas.sitecore.net/Visual-Studio-Intellisense">
   <SitemapManager>
     <FormPage Height="300px">
-      <CodeBeside Type="Sitecore.Modules.SitemapXML.SitemapManagerForm,Sitemap.XML"/>
+      <CodeBeside Type="Sitecore.Modules.SitemapXML.SitemapManagerForm, Sitemap.XML"/>
 
       <Panel ID="MainPanel" Height="100%">
         <Border Background="white" Height="100%" Style="padding: 0px 10px 10px 10px;">
