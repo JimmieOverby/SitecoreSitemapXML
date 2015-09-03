@@ -78,6 +78,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\SitemapHandler.cs" />
     <Compile Include="Models\SitemapItem.cs" />
     <Compile Include="sitecore modules\Shell\sitemap XML\Classes\SitemapHandler.cs" />
     <Compile Include="sitecore modules\Shell\sitemap XML\Classes\SitemapManager.cs" />

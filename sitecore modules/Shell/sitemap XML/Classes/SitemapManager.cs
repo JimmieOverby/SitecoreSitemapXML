@@ -57,7 +57,10 @@ namespace Sitecore.Modules.SitemapXML
         {
             Assert.IsNotNull(config, "config");
             _config = config;
+            if (!string.IsNullOrWhiteSpace(_config.FileName))
+            {
                 BuildSiteMap();
+            }
         }
 
 
@@ -69,9 +72,6 @@ namespace Sitecore.Modules.SitemapXML
 
             List<SitemapItem> items = GetSitemapItems(rootPath);
 
-            
-
-
             string fullPath = MainUtil.MapPath(string.Concat("/", _config.FileName));
             string xmlContent = this.BuildSitemapXML(items, site);
 
@@ -81,6 +81,18 @@ namespace Sitecore.Modules.SitemapXML
 
         }
 
+
+        public string BuildSiteMapForHandler()
+        {
+            var site = Sitecore.Sites.SiteManager.GetSite(Sitecore.Context.Site.Name);
+            var siteContext = Factory.GetSite(Sitecore.Context.Site.Name);
+            string rootPath = siteContext.StartPath;
+
+            var items = GetSitemapItems(rootPath);
+
+            string xmlContent = this.BuildSitemapXML(items, site);
+            return xmlContent;
+        }
 
 
         public bool SubmitSitemapToSearchenginesByHttp()

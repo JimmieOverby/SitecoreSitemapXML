@@ -33,7 +33,7 @@ namespace Sitecore.Modules.SitemapXML
     {
         #region Fields
 
-        private readonly string _siteName;
+        private readonly string _siteName = string.Empty;
         private readonly string _fileName;
 
         #endregion
@@ -45,6 +45,13 @@ namespace Sitecore.Modules.SitemapXML
             Assert.IsNotNullOrEmpty(fileName, "fileName");
             _fileName = fileName;
         }
+
+        public SitemapManagerConfiguration(string siteName)
+        {
+            Assert.IsNotNullOrEmpty(siteName, "siteName");
+            _siteName = siteName;
+        }
+
 
         #region properties
 
