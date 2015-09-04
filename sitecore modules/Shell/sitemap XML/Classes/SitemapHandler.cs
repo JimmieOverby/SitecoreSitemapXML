@@ -33,10 +33,10 @@ namespace Sitecore.Modules.SitemapXML
     {
         public void RefreshSitemap(object sender, EventArgs args)
         {
-            var sites = SitemapManagerConfiguration.GetSites();
-            foreach (DictionaryEntry site in sites)
+            var sites = SitemapManagerConfiguration.GetSiteNames(); 
+            foreach (var site in sites)
             {
-                var config = new SitemapManagerConfiguration(site.Key.ToString(), site.Value.ToString());
+                var config = new SitemapManagerConfiguration(site);
                 var sitemapManager = new SitemapManager(config);
                 sitemapManager.SubmitSitemapToSearchenginesByHttp();
                 sitemapManager.RegisterSitemapToRobotsFile();

@@ -26,6 +26,8 @@ using Sitecore.Data.Items;
 using Sitecore.Xml;
 using System.Collections.Specialized;
 using Sitecore.Diagnostics;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Sitecore.Modules.SitemapXML
 {
@@ -34,17 +36,8 @@ namespace Sitecore.Modules.SitemapXML
         #region Fields
 
         private readonly string _siteName = string.Empty;
-        private readonly string _fileName;
 
         #endregion
-
-        public SitemapManagerConfiguration(string siteName, string fileName)
-        {
-            Assert.IsNotNullOrEmpty(siteName, "siteName");
-            _siteName = siteName;
-            Assert.IsNotNullOrEmpty(fileName, "fileName");
-            _fileName = fileName;
-        }
 
         public SitemapManagerConfiguration(string siteName)
         {
@@ -95,6 +88,14 @@ namespace Sitecore.Modules.SitemapXML
             }
         }
 
+        public string ServerUrl
+        {
+            get
+            {
+                return GetValueByNameFromDatabase("Server Url");
+            }
+        }
+
         public static bool IsProductionEnvironment
         {
             get
@@ -116,7 +117,7 @@ namespace Sitecore.Modules.SitemapXML
         {
             get
             {
-                return _fileName;
+                return GetValueByNameFromDatabase("File Name");
             }
         }
              
@@ -157,18 +158,17 @@ namespace Sitecore.Modules.SitemapXML
             return result;
         }
 
-        public static StringDictionary GetSites()
+        public static IEnumerable<string> GetSiteNames()
         {
-            StringDictionary sites = new StringDictionary();
-            foreach (XmlNode node in Factory.GetConfigNodes("sitemapVariables/sites/site"))
-            {
-                if (!string.IsNullOrEmpty(XmlUtil.GetAttribute("name", node)) && !string.IsNullOrEmpty(XmlUtil.GetAttribute("filename", node)))
-                {
-                    sites.Add(XmlUtil.GetAttribute("name", node), XmlUtil.GetAttribute("filename", node));
-                }
+            const string sitemapXmlSystemRootId = "{6003D67E-0000-4A4D-BFB1-11408B9ADCFD}";
+            var configRoot = Context.ContentDatabase.GetItem(sitemapXmlSystemRootId);
+            if (configRoot == null) return null;
 
-            }
-            return sites;
+            var configs = configRoot.Children;
+            if (!configs.Any()) return null;
+
+            var siteNames = configs.Select(c => c.Name);
+            return siteNames;
         }
 
         public static string GetServerUrl(string siteName)

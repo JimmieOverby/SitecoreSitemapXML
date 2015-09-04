@@ -24,6 +24,7 @@ using Sitecore.Web.UI.HtmlControls;
 using Sitecore.Diagnostics;
 using System.Collections.Specialized;
 using System.Text;
+using System.Linq;
 
 namespace Sitecore.Modules.SitemapXML
 {
@@ -46,16 +47,27 @@ namespace Sitecore.Modules.SitemapXML
             var sh = new SitemapHandler();
             sh.RefreshSitemap(this, new EventArgs());
 
-            StringDictionary sites = SitemapManagerConfiguration.GetSites();
             StringBuilder sb = new StringBuilder();
-            foreach (string sitemapFile in sites.Values)
+            var siteNames = SitemapManagerConfiguration.GetSiteNames();
+            var message = string.Empty;
+            if (siteNames == null || !siteNames.Any())
             {
+                Message.Text = "No sitemap configurations found under /sitecore/system/Modules/Sitemap XML. Please create one or more configuration nodes and try refreshing again.";
+                RefreshPanel("MainPanel");
+                return;
+            }
+            foreach (var siteName in siteNames)
+            {
+                var config = new SitemapManagerConfiguration(siteName);
+                if (string.IsNullOrWhiteSpace(config.FileName)) continue;
                 if (sb.Length > 0)
                     sb.Append(", ");
-                sb.Append(sitemapFile);
+                sb.Append(config.FileName);
             }
 
-            string message = string.Format(" - The sitemap file <b>\"{0}\"</b> has been refreshed<br /> - <b>\"{0}\"</b> has been registered to \"robots.txt\"", sb.ToString());
+            message = !string.IsNullOrWhiteSpace(sb.ToString()) 
+                ? string.Format(" - The sitemap file <b>\"{0}\"</b> has been refreshed<br /> - <b>\"{0}\"</b> has been registered to \"robots.txt\"", sb.ToString()) 
+                :"File name has not been specified for one or more sitemap configurations under /sitecore/system/Modules/Sitemap XML.";
 
             Message.Text = message;
 
