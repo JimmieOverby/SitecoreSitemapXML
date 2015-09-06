@@ -16,7 +16,7 @@
             <Literal Text="&lt;hr /&gt;" />
           </Border>
           <Border>
-            <Button ID="RefreshButton" Header="Refresh sitemap" ToolTip="Rafresh sitemap file and register it to robots.txt" Style="width: 110px;" />
+            <Button ID="RefreshButton" Header="Refresh Sitemap" ToolTip="Refresh sitemap file and register it to robots.txt" Style="width: 110px;" />
           </Border>
           <Border Height="10px">
             <Literal Text="&lt;hr /&gt;" />
