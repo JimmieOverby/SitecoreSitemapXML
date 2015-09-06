@@ -10,7 +10,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sitemp_XML</RootNamespace>
+    <RootNamespace>Sitemap.XML</RootNamespace>
     <AssemblyName>Sitemap.XML</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileUpgradeFlags>
@@ -48,19 +48,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Sitecore.Buckets">
-      <HintPath>..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.Buckets.dll</HintPath>
+      <HintPath>..\..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.Buckets.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.ContentSearch">
-      <HintPath>..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.ContentSearch.dll</HintPath>
+      <HintPath>..\..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.ContentSearch.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.ContentSearch.Linq">
-      <HintPath>..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.ContentSearch.Linq.dll</HintPath>
+      <HintPath>..\..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.ContentSearch.Linq.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Kernel">
-      <HintPath>..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.Kernel.dll</HintPath>
+      <HintPath>..\..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.Kernel.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -80,10 +80,10 @@
   <ItemGroup>
     <Compile Include="Configuration\SitemapHandler.cs" />
     <Compile Include="Models\SitemapItem.cs" />
-    <Compile Include="sitecore modules\Shell\sitemap XML\Classes\SitemapHandler.cs" />
-    <Compile Include="sitecore modules\Shell\sitemap XML\Classes\SitemapManager.cs" />
-    <Compile Include="sitecore modules\Shell\sitemap XML\Classes\SitemapManagerForm.cs" />
-    <Compile Include="sitecore modules\Shell\sitemap XML\SitemapManagerConfiguration.cs" />
+    <Compile Include="Models\SitemapHandler.cs" />
+    <Compile Include="Models\SitemapManager.cs" />
+    <Compile Include="Models\SitemapManagerForm.cs" />
+    <Compile Include="Models\SitemapManagerConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\SitemapXML.config">

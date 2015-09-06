@@ -1,5 +1,4 @@
 ﻿using Sitecore.Data.Items;
-using Sitecore.Modules.SitemapXML;
 using Sitecore.Sites;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace Sitemp_XML.Models
+namespace Sitemap.XML.Models
 {
     public class SitemapItem
     {

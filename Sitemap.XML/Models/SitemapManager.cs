@@ -36,9 +36,9 @@ using Sitecore.Data.Fields;
 using Sitecore.Buckets.Managers;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.SearchTypes;
-using Sitemp_XML.Models;
+using Sitecore;
 
-namespace Sitecore.Modules.SitemapXML
+namespace Sitemap.XML.Models
 {
     public class SitemapManager
     {

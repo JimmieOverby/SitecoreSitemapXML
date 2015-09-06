@@ -27,7 +27,7 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using System.Collections;
 
-namespace Sitecore.Modules.SitemapXML
+namespace Sitemap.XML.Models
 {
     public class SitemapHandler
     {

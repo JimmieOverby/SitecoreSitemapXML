@@ -28,8 +28,9 @@ using System.Collections.Specialized;
 using Sitecore.Diagnostics;
 using System.Linq;
 using System.Collections.Generic;
+using Sitecore;
 
-namespace Sitecore.Modules.SitemapXML
+namespace Sitemap.XML.Models
 {
     public class SitemapManagerConfiguration
     {

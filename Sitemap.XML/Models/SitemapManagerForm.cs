@@ -26,7 +26,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Linq;
 
-namespace Sitecore.Modules.SitemapXML
+namespace Sitemap.XML.Models
 {
     public class SitemapManagerForm : Sitecore.Web.UI.Sheer.BaseForm
     {

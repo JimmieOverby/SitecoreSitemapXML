@@ -4,8 +4,8 @@ using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.Layouts;
 using Sitecore.Links;
-using Sitecore.Modules.SitemapXML;
 using Sitecore.Pipelines.HttpRequest;
+using Sitemap.XML.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ using System.Web;
 using System.Web.Caching;
 using System.Xml;
 
-namespace Sitemp_XML.Configuration
+namespace Sitemap.XML.Configuration
 {
     public class SitemapHandler : HttpRequestProcessor
     {
