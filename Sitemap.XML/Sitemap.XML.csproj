@@ -89,12 +89,13 @@
     <Content Include="App_Config\Include\SitemapXML.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="sitecore modules\Shell\sitemap XML\SitemapManager.xml" />
+    <Content Include="sitecore modules\Shell\Sitemap XML\SitemapManager.xml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
+    <Content Include="sitecore modules\Web\Sitemap XML\Sitemap.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

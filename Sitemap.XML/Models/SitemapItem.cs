@@ -15,6 +15,7 @@ namespace Sitemap.XML.Models
             Priority = item["Priority"];
             ChangeFrequency = item["Change Frequency"];
             LastModified = HtmlEncode(item.Statistics.Updated.ToString("yyyy-MM-ddTHH:mm:sszzz"));
+            Id = item.ID.Guid;
             var itemUrl = HtmlEncode(GetItemUrl(item, site));
             if (parentItem == null)
             {
@@ -34,7 +35,7 @@ namespace Sitemap.XML.Models
         public string LastModified { get; set; }
         public string ChangeFrequency { get; set; }
         public string Priority { get; set; }
-
+        public Guid Id { get; set; }
 
         public static string HtmlEncode(string text)
         {

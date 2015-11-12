@@ -21,7 +21,9 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Web.SessionState;
 using System.Xml;
+using Sitecore.ContentSearch.Sharding;
 using Sitecore.Data.Items;
 using Sitecore.Sites;
 using Sitecore.Data;
@@ -44,6 +46,7 @@ namespace Sitemap.XML.Models
     {
         //private static string sitemapUrl;
         private readonly SitemapManagerConfiguration _config;
+
         public Database Db
         {
             get
@@ -112,7 +115,9 @@ namespace Sitemap.XML.Models
                     if (engine != null)
                     {
                         string engineHttpRequestString = engine.Fields["HttpRequestString"].Value;
-                        var filePath = !SitemapManagerConfiguration.GetServerUrl(_config.SiteName).EndsWith("/") ? SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + "/" : SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + _config.FileName;
+                        var filePath = !SitemapManagerConfiguration.GetServerUrl(_config.SiteName).EndsWith("/")
+                            ? SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + "/"
+                            : SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + _config.FileName;
                         SubmitEngine(engineHttpRequestString, filePath);
                     }
                 }
@@ -205,12 +210,13 @@ namespace Sitemap.XML.Models
             {
                 string request = string.Concat(engine, SitemapItem.HtmlEncode(sitemapUrl));
 
-                System.Net.HttpWebRequest httpRequest = (System.Net.HttpWebRequest)System.Net.HttpWebRequest.Create(request);
+                System.Net.HttpWebRequest httpRequest =
+                    (System.Net.HttpWebRequest) System.Net.HttpWebRequest.Create(request);
                 try
                 {
                     System.Net.WebResponse webResponse = httpRequest.GetResponse();
 
-                    System.Net.HttpWebResponse httpResponse = (System.Net.HttpWebResponse)webResponse;
+                    System.Net.HttpWebResponse httpResponse = (System.Net.HttpWebResponse) webResponse;
                     if (httpResponse.StatusCode != System.Net.HttpStatusCode.OK)
                     {
                         Log.Error(string.Format("Cannot submit sitemap to \"{0}\"", engine), this);
@@ -244,16 +250,17 @@ namespace Sitemap.XML.Models
             // getting shared content
             var sharedItems = new List<Item>();
             var sharedModels = new List<SitemapItem>();
-            var sharedDefinitions = Db.SelectItems("fast:"+_config.SitemapConfigurationItemPath + "/Shared Content/*");
-             var site = Factory.GetSite(_config.SiteName);
-             List<string> enabledTemplates = this.BuildListFromString(disTpls, '|');
-             List<string> excludedNames = this.BuildListFromString(exclNames, '|');
+            var sharedDefinitions = Db.SelectItems("fast:" + _config.SitemapConfigurationItemPath + "/Shared Content/*");
+            var site = Factory.GetSite(_config.SiteName);
+            List<string> enabledTemplates = this.BuildListFromString(disTpls, '|');
+            List<string> excludedNames = this.BuildListFromString(exclNames, '|');
             foreach (var sharedDefinition in sharedDefinitions)
             {
-                if (string.IsNullOrWhiteSpace(sharedDefinition["Content Location"]) || string.IsNullOrWhiteSpace(sharedDefinition["Parent Item"]))
+                if (string.IsNullOrWhiteSpace(sharedDefinition["Content Location"]) ||
+                    string.IsNullOrWhiteSpace(sharedDefinition["Parent Item"]))
                     continue;
-                var contentLocation = ((DatasourceField)sharedDefinition.Fields["Content Location"]).TargetItem;
-                var parentItem = ((DatasourceField)sharedDefinition.Fields["Parent Item"]).TargetItem;
+                var contentLocation = ((DatasourceField) sharedDefinition.Fields["Content Location"]).TargetItem;
+                var parentItem = ((DatasourceField) sharedDefinition.Fields["Parent Item"]).TargetItem;
 
                 if (BucketManager.IsBucket(contentLocation))
                 {
@@ -261,9 +268,10 @@ namespace Sitemap.XML.Models
                     using (var searchContext = index.CreateSearchContext())
                     {
                         var searchResultItem =
-                            searchContext.GetQueryable<SearchResultItem>().Where(item => item.Paths.Contains(contentLocation.ID))
-                            .ToList();
-                        sharedItems.AddRange(searchResultItem.Select(i=>i.GetItem()));
+                            searchContext.GetQueryable<SearchResultItem>()
+                                .Where(item => item.Paths.Contains(contentLocation.ID))
+                                .ToList();
+                        sharedItems.AddRange(searchResultItem.Select(i => i.GetItem()));
                     }
                 }
                 else
@@ -272,9 +280,9 @@ namespace Sitemap.XML.Models
                 }
 
                 var cleanedSharedItems = from itm in sharedItems
-                                         where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
-                                                  !excludedNames.Contains(itm.ID.ToString())
-                                         select itm;
+                    where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
+                          !excludedNames.Contains(itm.ID.ToString())
+                    select itm;
                 var sharedSitemapItems = cleanedSharedItems.Select(i => new SitemapItem(i, site, parentItem));
                 sharedModels.AddRange(sharedSitemapItems);
             }
@@ -282,14 +290,14 @@ namespace Sitemap.XML.Models
             List<Item> sitemapItems = descendants.ToList();
             sitemapItems.Insert(0, contentRoot);
 
-            
+
 
 
             var selected = from itm in sitemapItems
-                           where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
-                                    !excludedNames.Contains(itm.ID.ToString())
-                           select itm;
-           
+                where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
+                      !excludedNames.Contains(itm.ID.ToString())
+                select itm;
+
             var selectedModels = selected.Select(i => new SitemapItem(i, site, null)).ToList();
             selectedModels.AddRange(sharedModels);
             return selectedModels;
@@ -299,13 +307,53 @@ namespace Sitemap.XML.Models
         {
             string[] enabledTemplates = str.Split(separator);
             var selected = from dtp in enabledTemplates
-                           where !string.IsNullOrEmpty(dtp)
-                           select dtp;
+                where !string.IsNullOrEmpty(dtp)
+                select dtp;
 
             List<string> result = selected.ToList();
 
             return result;
         }
 
+        public static bool IsShared(Item item)
+        {
+            var sharedDefinitions = GetSharedContentDefinitions();
+
+            var sharedItemContentRoots =
+                sharedDefinitions.Select(i => ((DatasourceField) i.Fields["Parent Item"]).TargetItem).ToList();
+            if (!sharedItemContentRoots.Any()) return false;
+
+            return sharedItemContentRoots.Any(i => i.ID == item.ID);
+        }
+
+        public static Item GetSharedParent(Item item)
+        {
+            var sharedNodes = GetSharedContentDefinitions();
+
+            var sharedAreaDefinitions = sharedNodes.Select(i => ((DatasourceField)i.Fields["Parent Item"]).TargetItem).ToList();
+            return !sharedAreaDefinitions.Any() ? null : sharedAreaDefinitions.First(i => i.ID.Guid == item.ID.Guid);
+        }
+
+
+        private static IEnumerable<Item> GetSharedContentDefinitions()
+        {
+            var siteNode = GetContextSiteDefinitionItem();
+            if (siteNode == null || string.IsNullOrWhiteSpace(siteNode.Name)) return null;
+
+            var sharedItemParent = siteNode.Children["Shared Content"];
+            if (sharedItemParent == null) return null;
+
+            var sharedDefinitions = sharedItemParent.Children;
+            return sharedDefinitions;
+        }
+
+        private static Item GetContextSiteDefinitionItem()
+        {
+            var sitemapModuleItem = Context.Database.GetItem("{6003D67E-0000-4A4D-BFB1-11408B9ADCFD}");
+            var contextSite = Context.GetSiteName().ToLower();
+            if (!sitemapModuleItem.Children.Any()) return null;
+            var siteNode = sitemapModuleItem.Children.FirstOrDefault(i => i.Key == contextSite);
+            return siteNode;
+        }
     }
 }

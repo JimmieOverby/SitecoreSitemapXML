@@ -1,0 +1,32 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using Sitecore.Data.Items
+@using Sitemap.XML.Models
+@{
+    var root = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.StartPath);
+    <div class="sitemap">
+        <a href="@Sitecore.Links.LinkManager.GetItemUrl(root)">@root["title"]</a>
+        @RecursiveSitemap(root)
+    </div>
+}
+
+@helper RecursiveSitemap(Item parentItem)
+{
+    <ul>
+        @{
+            if (SitemapManager.IsShared(parentItem))
+            {
+                <p>shared found</p>
+                parentItem = SitemapManager.GetSharedParent(parentItem);
+            }
+            Sitecore.Collections.ChildList childList = parentItem.Children;
+            foreach (Item child in childList)
+            {
+                <li><a href="@Sitecore.Links.LinkManager.GetItemUrl(child)">@child["title"]</a></li>
+                if (child.Children.Count != 0)
+                {
+                    @RecursiveSitemap(child);
+                }
+            }
+        }
+    </ul>
+}
