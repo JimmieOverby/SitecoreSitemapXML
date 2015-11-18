@@ -21,10 +21,16 @@
             Sitecore.Collections.ChildList childList = parentItem.Children;
             foreach (Item child in childList)
             {
-                <li><a href="@Sitecore.Links.LinkManager.GetItemUrl(child)">@child["title"]</a></li>
-                if (child.Children.Count != 0)
+                var localChild = child;
+
+                <li><a href="@Sitecore.Links.LinkManager.GetItemUrl(localChild)">@localChild["title"]</a></li>
+                if (SitemapManager.IsShared(localChild))
                 {
-                    @RecursiveSitemap(child);
+                    localChild = SitemapManager.GetSharedParent(localChild);
+                }
+                if (localChild.Children.Count != 0)
+                {
+                    @RecursiveSitemap(localChild);
                 }
             }
         }

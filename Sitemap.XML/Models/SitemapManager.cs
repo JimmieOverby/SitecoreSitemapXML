@@ -329,9 +329,8 @@ namespace Sitemap.XML.Models
         public static Item GetSharedParent(Item item)
         {
             var sharedNodes = GetSharedContentDefinitions();
-
-            var sharedAreaDefinitions = sharedNodes.Select(i => ((DatasourceField)i.Fields["Parent Item"]).TargetItem).ToList();
-            return !sharedAreaDefinitions.Any() ? null : sharedAreaDefinitions.First(i => i.ID.Guid == item.ID.Guid);
+            var sharedParent = sharedNodes.FirstOrDefault(i => ((DatasourceField)i.Fields["Parent Item"]).TargetItem.ID == item.ID);
+            return sharedParent != null ? ((DatasourceField) sharedParent.Fields["Content Location"]).TargetItem : null;
         }
 
 
