@@ -15,15 +15,16 @@
         @{
             if (SitemapManager.IsShared(parentItem))
             {
-                <p>shared found</p>
                 parentItem = SitemapManager.GetSharedParent(parentItem);
             }
             Sitecore.Collections.ChildList childList = parentItem.Children;
             foreach (Item child in childList)
             {
                 var localChild = child;
-
-                <li><a href="@Sitecore.Links.LinkManager.GetItemUrl(localChild)">@localChild["title"]</a></li>
+                if (SitemapManager.IsEnabledTemplate(localChild) && !SitemapManager.IsDisabledItem(localChild))
+                {
+                    <li><a href="@Sitecore.Links.LinkManager.GetItemUrl(localChild)">@localChild["title"]</a></li>
+                }
                 if (SitemapManager.IsShared(localChild))
                 {
                     localChild = SitemapManager.GetSharedParent(localChild);

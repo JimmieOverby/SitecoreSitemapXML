@@ -290,9 +290,6 @@ namespace Sitemap.XML.Models
             List<Item> sitemapItems = descendants.ToList();
             sitemapItems.Insert(0, contentRoot);
 
-
-
-
             var selected = from itm in sitemapItems
                 where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
                       !excludedNames.Contains(itm.ID.ToString())
@@ -333,6 +330,17 @@ namespace Sitemap.XML.Models
             return sharedParent != null ? ((DatasourceField) sharedParent.Fields["Content Location"]).TargetItem : null;
         }
 
+        public static bool IsEnabledTemplate(Item item)
+        {
+            var config = new SitemapManagerConfiguration(Context.GetSiteName());
+            return config.EnabledTemplates.ToLower().Contains(item.TemplateID.ToGuid().ToString());
+        }
+
+        public static bool IsDisabledItem(Item item)
+        {
+            var config = new SitemapManagerConfiguration(Context.GetSiteName());
+            return config.ExcludeItems.ToLower().Contains(item.ID.ToGuid().ToString());
+        }
 
         private static IEnumerable<Item> GetSharedContentDefinitions()
         {
