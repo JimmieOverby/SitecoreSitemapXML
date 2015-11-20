@@ -248,7 +248,7 @@ namespace Sitemap.XML.Models
             }
 
             // getting shared content
-            var sharedItems = new List<Item>();
+            
             var sharedModels = new List<SitemapItem>();
             var sharedDefinitions = Db.SelectItems("fast:" + _config.SitemapConfigurationItemPath + "/Shared Content/*");
             var site = Factory.GetSite(_config.SiteName);
@@ -261,7 +261,7 @@ namespace Sitemap.XML.Models
                     continue;
                 var contentLocation = ((DatasourceField) sharedDefinition.Fields["Content Location"]).TargetItem;
                 var parentItem = ((DatasourceField) sharedDefinition.Fields["Parent Item"]).TargetItem;
-
+                var sharedItems = new List<Item>();
                 if (BucketManager.IsBucket(contentLocation))
                 {
                     var index = ContentSearchManager.GetIndex(new SitecoreIndexableItem(contentLocation));
@@ -269,19 +269,19 @@ namespace Sitemap.XML.Models
                     {
                         var searchResultItem =
                             searchContext.GetQueryable<SearchResultItem>()
-                                .Where(item => item.Paths.Contains(contentLocation.ID))
+                                .Where(item => item.Paths.Contains(contentLocation.ID) && item.ItemId!=contentLocation.ID)
                                 .ToList();
                         sharedItems.AddRange(searchResultItem.Select(i => i.GetItem()));
                     }
                 }
                 else
                 {
-                    sharedItems.AddRange(contentLocation.Children);
+                    sharedItems.AddRange(contentLocation.Axes.GetDescendants());
                 }
 
                 var cleanedSharedItems = from itm in sharedItems
-                    where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
-                          !excludedNames.Contains(itm.ID.ToString())
+                    where itm.Template != null && enabledTemplates.Select(t=>t.ToLower()).Contains(itm.Template.ID.ToString().ToLower()) &&
+                          !excludedNames.Select(t => t.ToLower()).Contains(itm.ID.ToString().ToLower())
                     select itm;
                 var sharedSitemapItems = cleanedSharedItems.Select(i => new SitemapItem(i, site, parentItem));
                 sharedModels.AddRange(sharedSitemapItems);
@@ -327,7 +327,9 @@ namespace Sitemap.XML.Models
         {
             var sharedNodes = GetSharedContentDefinitions();
             var sharedParent = sharedNodes.FirstOrDefault(i => ((DatasourceField)i.Fields["Parent Item"]).TargetItem.ID == item.ID);
-            return sharedParent != null ? ((DatasourceField) sharedParent.Fields["Content Location"]).TargetItem : null;
+            var sharedLocation =  sharedParent != null ? ((DatasourceField) sharedParent.Fields["Content Location"]).TargetItem : null;
+
+            return sharedLocation;
         }
 
         public static bool IsEnabledTemplate(Item item)
