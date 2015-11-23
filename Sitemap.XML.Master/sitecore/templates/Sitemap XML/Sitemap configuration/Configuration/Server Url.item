@@ -2,7 +2,7 @@
 version: 1
 id: {5043C9C2-A6AC-492C-8C1A-F7AFECF77D46}
 database: master
-path: /sitecore/templates/Sitemap XML/Sitemap configuration/Configuration/Server Url
+path: /sitecore/templates/Sitemap XML/Sitemap Configuration/Configuration/Server Url
 parent: {4D81B455-5970-4CCE-9C90-D797F19C8A00}
 name: Server Url
 master: {00000000-0000-0000-0000-000000000000}
@@ -26,8 +26,15 @@ content-length: 3
 ----version----
 language: en
 version: 1
-revision: 77d81965-03e8-4a8f-be3f-7deff0ea6251
+revision: 753226ec-4e34-412d-b1f9-866c312de04e
 
+----field----
+field: {577F1689-7DE4-4AD2-A15F-7FDC1759285F}
+name: __Long description
+key: __long description
+content-length: 226
+
+Forces a custom host URL, overrides dynamic server URL identification. By default the module will try to get the URL from the "serverUrl" setting of the website and fallback to the context URL used when requesting the sitemap.
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
@@ -41,14 +48,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-77d81965-03e8-4a8f-be3f-7deff0ea6251
+753226ec-4e34-412d-b1f9-866c312de04e
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
-content-length: 16
+content-length: 35
 
-20150903T181455Z
+20151123T051901:635838527414905264Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

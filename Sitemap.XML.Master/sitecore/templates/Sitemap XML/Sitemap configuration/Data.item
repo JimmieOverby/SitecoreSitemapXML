@@ -2,7 +2,7 @@
 version: 1
 id: {AEEFC911-1513-4C35-B212-9299CDCA253F}
 database: master
-path: /sitecore/templates/Sitemap XML/Sitemap configuration/Data
+path: /sitecore/templates/Sitemap XML/Sitemap Configuration/Data
 parent: {B1D42AAC-82EF-43EF-9EEA-784F655B8F04}
 name: Data
 master: {00000000-0000-0000-0000-000000000000}
@@ -12,7 +12,7 @@ templatekey: Template section
 ----version----
 language: en
 version: 1
-revision: 3140b2c9-f4b3-4377-8296-b805ed2801c5
+revision: 8a9b5048-0ea7-4cde-9675-4cf29aadf239
 
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
@@ -41,14 +41,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-3140b2c9-f4b3-4377-8296-b805ed2801c5
+8a9b5048-0ea7-4cde-9675-4cf29aadf239
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
-content-length: 16
+content-length: 35
 
-20150903T181455Z
+20151123T051901:635838527414555010Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

@@ -17,6 +17,13 @@ content-length: 10
 
 Datasource
 ----field----
+field: {1EB8AE32-E190-44A6-968D-ED904C794EBF}
+name: Source
+key: source
+content-length: 17
+
+/sitecore/content
+----field----
 field: {BA3F86A2-4A1C-4D78-B63D-91C2779C1B5E}
 name: __Sortorder
 key: __sortorder
@@ -26,8 +33,15 @@ content-length: 3
 ----version----
 language: en
 version: 1
-revision: 71e45df6-7b46-4dc1-adcb-2e273ff6ab28
+revision: 7d3d1859-9678-4f47-aac3-2bbcf76b1ea8
 
+----field----
+field: {577F1689-7DE4-4AD2-A15F-7FDC1759285F}
+name: __Long description
+key: __long description
+content-length: 43
+
+Actual shared content location parent item.
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
@@ -41,14 +55,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-71e45df6-7b46-4dc1-adcb-2e273ff6ab28
+7d3d1859-9678-4f47-aac3-2bbcf76b1ea8
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
-content-length: 16
+content-length: 35
 
-20150901T004945Z
+20151123T051736:635838526566816392Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

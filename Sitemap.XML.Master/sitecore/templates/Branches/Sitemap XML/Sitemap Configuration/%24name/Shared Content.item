@@ -1,47 +1,33 @@
 ----item----
 version: 1
-id: {B1D42AAC-82EF-43EF-9EEA-784F655B8F04}
+id: {FE3073A1-984B-4F6C-92E2-34AA8C89DF62}
 database: master
-path: /sitecore/templates/Sitemap XML/Sitemap Configuration
-parent: {3BF9EE49-E693-45FE-B10D-D5D684484519}
-name: Sitemap Configuration
+path: /sitecore/templates/Branches/Sitemap XML/Sitemap Configuration/$name/Shared Content
+parent: {6DA8E3E7-E76F-4ACB-8AE4-4224B33978AE}
+name: Shared Content
 master: {00000000-0000-0000-0000-000000000000}
-template: {AB86861A-6030-46C5-B394-E8F99E8B87DB}
-templatekey: Template
+template: {A87A00B1-E6DB-45AB-8B54-636FEC3B5523}
+templatekey: Folder
 
 ----field----
-field: {F7D48A55-2158-4F02-9356-756654404F73}
-name: __Standard values
-key: __standard values
+field: {1172F251-DAD4-4EFB-A329-0C63500E4F1E}
+name: __Masters
+key: __masters
 content-length: 38
 
-{16A4256B-4629-477F-91D5-A2C551D3111A}
-----field----
-field: {06D5295C-ED2F-4A54-9BF2-26228D113318}
-name: __Icon
-key: __icon
-content-length: 29
-
-Network/16x16/environment.png
+{CB547F2D-4C51-4AB3-824C-03439FB89FA6}
 ----version----
 language: en
 version: 1
-revision: de384472-0d59-498f-8cbd-cfdac15372fa
+revision: fc095ca8-096d-4c5e-857e-0917a01a5dae
 
-----field----
-field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
-name: __Owner
-key: __owner
-content-length: 14
-
-sitecore\admin
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
 content-length: 16
 
-20090401T001900Z
+20151123T052131Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -55,14 +41,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-de384472-0d59-498f-8cbd-cfdac15372fa
+fc095ca8-096d-4c5e-857e-0917a01a5dae
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 35
 
-20151123T051926:635838527665786133Z
+20151123T052154:635838529143743955Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

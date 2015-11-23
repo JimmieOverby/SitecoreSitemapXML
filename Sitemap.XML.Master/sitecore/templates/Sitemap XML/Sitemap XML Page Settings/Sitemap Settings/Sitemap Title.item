@@ -1,10 +1,10 @@
 ----item----
 version: 1
-id: {AA4769B3-9F9F-4628-B3CD-2536B25920CA}
+id: {CA16CD58-41CC-466B-80D8-2850AAB05C5D}
 database: master
-path: /sitecore/templates/Sitemap XML/Shared Content Definition/Shared Content/Parent Item
-parent: {52EC7A99-E5BA-4B14-850A-B31BF9C86F0B}
-name: Parent Item
+path: /sitecore/templates/Sitemap XML/Sitemap XML Page Settings/Sitemap Settings/Sitemap Title
+parent: {E501763B-B8C9-44AA-9509-40D04738DCA8}
+name: Sitemap Title
 master: {00000000-0000-0000-0000-000000000000}
 template: {455A3E98-A627-4B40-8035-E683A0331AC7}
 templatekey: Template field
@@ -13,16 +13,9 @@ templatekey: Template field
 field: {AB162CC0-DC80-4ABF-8871-998EE5D7BA32}
 name: Type
 key: type
-content-length: 10
+content-length: 16
 
-Datasource
-----field----
-field: {1EB8AE32-E190-44A6-968D-ED904C794EBF}
-name: Source
-key: source
-content-length: 17
-
-/sitecore/content
+Single-Line Text
 ----field----
 field: {BA3F86A2-4A1C-4D78-B63D-91C2779C1B5E}
 name: __Sortorder
@@ -33,36 +26,29 @@ content-length: 2
 ----version----
 language: en
 version: 1
-revision: db88d01c-f0c8-4b77-a84b-7ccab5ef9c94
+revision: 3b7c3b06-1be2-4943-8d1f-000afc06dadc
 
-----field----
-field: {577F1689-7DE4-4AD2-A15F-7FDC1759285F}
-name: __Long description
-key: __long description
-content-length: 119
-
-Parent item is located under the website Home item.  This item should appear as the parent item for the shared content.
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
 content-length: 16
 
-20150901T001929Z
+20151123T050620Z
 ----field----
 field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
 name: __Revision
 key: __revision
 content-length: 36
 
-db88d01c-f0c8-4b77-a84b-7ccab5ef9c94
+3b7c3b06-1be2-4943-8d1f-000afc06dadc
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 35
 
-20151123T051736:635838526566726335Z
+20151123T050625:635838519856997624Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

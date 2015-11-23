@@ -7,7 +7,7 @@ parent: {6003D67E-0000-4A4D-BFB1-11408B9ADCFD}
 name: Website
 master: {00000000-0000-0000-0000-000000000000}
 template: {B1D42AAC-82EF-43EF-9EEA-784F655B8F04}
-templatekey: Sitemap configuration
+templatekey: Sitemap Configuration
 
 ----field----
 field: {1172F251-DAD4-4EFB-A329-0C63500E4F1E}
@@ -19,26 +19,26 @@ content-length: 0
 ----version----
 language: en
 version: 1
-revision: 6c8ea80d-c3e6-4160-8f0e-2032de7c12a8
+revision: 3621bd67-d9a8-4bb1-83e9-11c6e915ebc3
 
 ----field----
 field: {6BF47032-530C-4DF3-9B29-0849E0990319}
-name: Search engines
+name: Search Engines
 key: search engines
 content-length: 116
 
 {41ECB6BD-ADE0-474E-82E6-B104AD4C6ADC}|{3B4FF72D-C4C1-4CB1-B2CB-679669FD1310}|{B1549268-0C35-4F80-ACA2-A66979A130C5}
 ----field----
 field: {1452D535-BA8B-4A66-9A87-67D05A6E2058}
-name: Enabled templates
+name: Enabled Templates
 key: enabled templates
-content-length: 233
+content-length: 0
 
-{0ACD30D8-863E-4B1D-8612-719EEFC1DA4F}|{7139A8B6-68D9-471F-96E4-B87ED703C185}|{F52F00E0-3F65-4C1A-9BF6-AF03CE94E599}|{86CD0756-7B65-4CD5-865B-036F9F84498F}|{455B0CD7-43EE-4553-A7AD-FFFC1DA2143E}|{FF9867EE-0B7F-4E0E-B604-6329A923A4B4}
+
 ----field----
 field: {76002E61-2397-4B4D-84B2-98C2A8468D5A}
-name: Exclude items
-key: exclude items
+name: Excluded Items
+key: excluded items
 content-length: 0
 
 
@@ -46,16 +46,16 @@ content-length: 0
 field: {E461EAAB-12A1-4F94-BFAF-0F1F88D0715D}
 name: File Name
 key: file name
-content-length: 11
+content-length: 0
 
-website.xml
+
 ----field----
 field: {5043C9C2-A6AC-492C-8C1A-F7AFECF77D46}
 name: Server Url
 key: server url
-content-length: 18
+content-length: 0
 
-http://someurl.com
+
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -83,14 +83,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-6c8ea80d-c3e6-4160-8f0e-2032de7c12a8
+3621bd67-d9a8-4bb1-83e9-11c6e915ebc3
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
-content-length: 16
+content-length: 35
 
-20150904T133958Z
+20151123T052928:635838533682906360Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

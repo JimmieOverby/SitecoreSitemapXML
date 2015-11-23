@@ -1,25 +1,25 @@
 ----item----
 version: 1
-id: {122FF533-9564-4ADA-A1C8-E7B1385B89DE}
+id: {7E32FD2F-420B-4090-A4F3-1A5CA1783B73}
 database: master
-path: /sitecore/templates/Sitemap XML/Sitemap searchengine
-parent: {3BF9EE49-E693-45FE-B10D-D5D684484519}
-name: Sitemap searchengine
+path: /sitecore/templates/Branches/Sitemap XML/Sitemap Configuration
+parent: {F8943F87-8451-49A4-9060-C320058D99A5}
+name: Sitemap Configuration
 master: {00000000-0000-0000-0000-000000000000}
-template: {AB86861A-6030-46C5-B394-E8F99E8B87DB}
-templatekey: Template
+template: {35E75C72-4985-4E09-88C3-0EAC6CD1E64F}
+templatekey: Branch
 
 ----field----
 field: {06D5295C-ED2F-4A54-9BF2-26228D113318}
 name: __Icon
 key: __icon
-content-length: 28
+content-length: 29
 
-Network/32x32/earth_view.png
+network/16x16/environment.png
 ----version----
 language: en
 version: 1
-revision: eef8bb0a-bd29-4142-80da-7874a061307f
+revision: 3067fc97-2165-4513-8318-1532b76ece31
 
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
@@ -32,9 +32,9 @@ sitecore\admin
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
-content-length: 15
+content-length: 16
 
-20090331T172400
+20151123T052032Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -48,14 +48,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-eef8bb0a-bd29-4142-80da-7874a061307f
+3067fc97-2165-4513-8318-1532b76ece31
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
-content-length: 16
+content-length: 35
 
-20150901T001311Z
+20151123T052357:635838530377088794Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

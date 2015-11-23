@@ -33,8 +33,15 @@ Software/32x32/component.png
 ----version----
 language: en
 version: 1
-revision: f51f20ae-6d43-4f5a-822c-f5d1c3133ed7
+revision: e0c39f06-8730-4fde-8846-772499c2a74a
 
+----field----
+field: {577F1689-7DE4-4AD2-A15F-7FDC1759285F}
+name: __Long description
+key: __long description
+content-length: 96
+
+Used for adding content outside of the main site content tree into the sitemap (shared content).
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
@@ -55,14 +62,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-f51f20ae-6d43-4f5a-822c-f5d1c3133ed7
+e0c39f06-8730-4fde-8846-772499c2a74a
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
-content-length: 16
+content-length: 35
 
-20150901T002930Z
+20151123T051737:635838526572235635Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

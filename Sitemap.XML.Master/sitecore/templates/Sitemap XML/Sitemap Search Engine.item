@@ -1,39 +1,25 @@
 ----item----
 version: 1
-id: {76002E61-2397-4B4D-84B2-98C2A8468D5A}
+id: {122FF533-9564-4ADA-A1C8-E7B1385B89DE}
 database: master
-path: /sitecore/templates/Sitemap XML/Sitemap configuration/Configuration/Exclude items
-parent: {4D81B455-5970-4CCE-9C90-D797F19C8A00}
-name: Exclude items
+path: /sitecore/templates/Sitemap XML/Sitemap Search Engine
+parent: {3BF9EE49-E693-45FE-B10D-D5D684484519}
+name: Sitemap Search Engine
 master: {00000000-0000-0000-0000-000000000000}
-template: {455A3E98-A627-4B40-8035-E683A0331AC7}
-templatekey: Template field
+template: {AB86861A-6030-46C5-B394-E8F99E8B87DB}
+templatekey: Template
 
 ----field----
-field: {AB162CC0-DC80-4ABF-8871-998EE5D7BA32}
-name: Type
-key: type
-content-length: 8
+field: {06D5295C-ED2F-4A54-9BF2-26228D113318}
+name: __Icon
+key: __icon
+content-length: 28
 
-Treelist
-----field----
-field: {1EB8AE32-E190-44A6-968D-ED904C794EBF}
-name: Source
-key: source
-content-length: 17
-
-/sitecore/content
-----field----
-field: {BA3F86A2-4A1C-4D78-B63D-91C2779C1B5E}
-name: __Sortorder
-key: __sortorder
-content-length: 3
-
-200
+Network/32x32/earth_view.png
 ----version----
 language: en
 version: 1
-revision: 980d042d-d88f-42d5-8ad1-c81ce22e5e3b
+revision: 02cca362-131f-4b08-a701-616efc54870e
 
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
@@ -48,7 +34,7 @@ name: __Created
 key: __created
 content-length: 15
 
-20090803T154636
+20090331T172400
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -62,14 +48,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-980d042d-d88f-42d5-8ad1-c81ce22e5e3b
+02cca362-131f-4b08-a701-616efc54870e
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
-content-length: 16
+content-length: 35
 
-20150903T181455Z
+20151123T050840:635838521209613460Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

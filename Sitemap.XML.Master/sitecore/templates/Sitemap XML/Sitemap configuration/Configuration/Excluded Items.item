@@ -1,10 +1,10 @@
 ----item----
 version: 1
-id: {1452D535-BA8B-4A66-9A87-67D05A6E2058}
+id: {76002E61-2397-4B4D-84B2-98C2A8468D5A}
 database: master
-path: /sitecore/templates/Sitemap XML/Sitemap Configuration/Configuration/Enabled Templates
+path: /sitecore/templates/Sitemap XML/Sitemap Configuration/Configuration/Excluded Items
 parent: {4D81B455-5970-4CCE-9C90-D797F19C8A00}
-name: Enabled Templates
+name: Excluded Items
 master: {00000000-0000-0000-0000-000000000000}
 template: {455A3E98-A627-4B40-8035-E683A0331AC7}
 templatekey: Template field
@@ -20,28 +20,28 @@ TreelistEx
 field: {1EB8AE32-E190-44A6-968D-ED904C794EBF}
 name: Source
 key: source
-content-length: 19
+content-length: 17
 
-/sitecore/templates
+/sitecore/content
 ----field----
 field: {BA3F86A2-4A1C-4D78-B63D-91C2779C1B5E}
 name: __Sortorder
 key: __sortorder
 content-length: 3
 
-100
+200
 ----version----
 language: en
 version: 1
-revision: c3b28ba2-ca9a-43d6-b3c5-0e04f6b1e0a5
+revision: 75ec4345-1255-4841-ba62-0f02a91dc9ab
 
 ----field----
 field: {577F1689-7DE4-4AD2-A15F-7FDC1759285F}
 name: __Long description
 key: __long description
-content-length: 34
+content-length: 32
 
-Templates included in the sitemap.
+Items excluded from the sitemap.
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -55,7 +55,7 @@ name: __Created
 key: __created
 content-length: 16
 
-20090803T224635Z
+20090803T224636Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -69,14 +69,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-c3b28ba2-ca9a-43d6-b3c5-0e04f6b1e0a5
+75ec4345-1255-4841-ba62-0f02a91dc9ab
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 35
 
-20151123T051901:635838527414735150Z
+20151123T051901:635838527414795184Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

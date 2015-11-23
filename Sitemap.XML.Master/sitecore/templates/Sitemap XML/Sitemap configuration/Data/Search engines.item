@@ -2,9 +2,9 @@
 version: 1
 id: {6BF47032-530C-4DF3-9B29-0849E0990319}
 database: master
-path: /sitecore/templates/Sitemap XML/Sitemap configuration/Data/Search engines
+path: /sitecore/templates/Sitemap XML/Sitemap Configuration/Data/Search Engines
 parent: {AEEFC911-1513-4C35-B212-9299CDCA253F}
-name: Search engines
+name: Search Engines
 master: {00000000-0000-0000-0000-000000000000}
 template: {455A3E98-A627-4B40-8035-E683A0331AC7}
 templatekey: Template field
@@ -33,8 +33,15 @@ content-length: 3
 ----version----
 language: en
 version: 1
-revision: 9fd00bea-ebb0-4f58-a632-d989c2701945
+revision: 797a3a74-d7a0-4d22-9e30-10169ba51b66
 
+----field----
+field: {577F1689-7DE4-4AD2-A15F-7FDC1759285F}
+name: __Long description
+key: __long description
+content-length: 86
+
+Search engines to which the sitemap will be automatically submitted with each publish.
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -46,9 +53,9 @@ sitecore\admin
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
-content-length: 15
+content-length: 16
 
-20090331T172257
+20090401T002257Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -62,14 +69,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-9fd00bea-ebb0-4f58-a632-d989c2701945
+797a3a74-d7a0-4d22-9e30-10169ba51b66
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
-content-length: 16
+content-length: 35
 
-20150903T181455Z
+20151123T051901:635838527414605048Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
