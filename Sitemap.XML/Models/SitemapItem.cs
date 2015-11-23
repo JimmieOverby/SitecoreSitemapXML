@@ -107,5 +107,16 @@ namespace Sitemap.XML.Models
             var itemNamePath = itemUrl.Substring(pos, itemUrl.Length - pos);
             return HtmlEncode(parentUrl + itemNamePath);
         }
+
+        public static string GetSharedItemUrl(Item item, SiteContext site)
+        {
+            var parentItem = SitemapManager.GetSharedLocationParent(item);
+            var itemUrl = HtmlEncode(GetItemUrl(item, site));
+            var parentUrl = HtmlEncode(GetItemUrl(parentItem, site));
+            parentUrl = parentUrl.EndsWith("/") ? parentUrl : parentUrl + "/";
+            var pos = itemUrl.LastIndexOf("/") + 1;
+            var itemNamePath = itemUrl.Substring(pos, itemUrl.Length - pos);
+            return HtmlEncode(parentUrl + itemNamePath);
+        }
     }
 }

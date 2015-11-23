@@ -314,6 +314,11 @@ namespace Sitemap.XML.Models
 
         #region View Helpers
 
+        public static bool IsUnderContent(Item item)
+        {
+            return Context.Database.GetItem(Context.Site.StartPath).Axes.IsAncestorOf(item);
+        }
+
         public static bool IsShared(Item item)
         {
             var sharedDefinitions = GetSharedContentDefinitions();
@@ -332,6 +337,24 @@ namespace Sitemap.XML.Models
             var sharedLocation =  sharedParent != null ? ((DatasourceField) sharedParent.Fields["Content Location"]).TargetItem : null;
 
             return sharedLocation;
+        }
+
+        public static bool IsChildUnderSharedLocation(Item child)
+        {
+            var sharedNodes = GetSharedContentDefinitions();
+            var sharedContentLocations = sharedNodes.Select(n=>((DatasourceField)n.Fields["Content Location"]).TargetItem);
+            var isUnderShared = sharedContentLocations.Any(l => l.Axes.IsAncestorOf(child));
+            return isUnderShared;
+        }
+
+        public static Item GetSharedLocationParent(Item child)
+        {
+            var sharedNodes = GetSharedContentDefinitions();
+            var parent = sharedNodes
+                .Where(n => ((DatasourceField)n.Fields["Content Location"]).TargetItem.Axes.IsAncestorOf(child))
+                .Select(n => ((DatasourceField)n.Fields["Parent Item"]).TargetItem)
+                .FirstOrDefault();
+            return parent;
         }
 
         public static bool IsEnabledTemplate(Item item)

@@ -1,5 +1,6 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 @using Sitecore.Data.Items
+@using Sitecore.Links
 @using Sitemap.XML.Models
 @using SM = Sitemap.XML.Models.SitemapManager;
 @{
@@ -30,9 +31,8 @@
         var localChild = child;
         if (SM.IsEnabledTemplate(localChild) && !SM.IsDisabledItem(localChild))
         {
-            var item = new SitemapItem(localChild, Sitecore.Context.Site, SM.IsShared(parentItem)? parentItem:null);
             @:<li>
-            <a href="@item.Location">@item.Title</a>
+            <a href="@(SM.IsChildUnderSharedLocation(localChild) ? SitemapItem.GetSharedItemUrl(localChild, Sitecore.Context.Site) : LinkManager.GetItemUrl(localChild))">@localChild["Title"]</a>
         }
         if (SM.IsShared(localChild))
         {
