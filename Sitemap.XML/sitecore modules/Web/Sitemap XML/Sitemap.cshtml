@@ -1,13 +1,14 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 @using Sitecore.Data.Items
 @using Sitecore.Links
+@using Sitemap.XML
 @using Sitemap.XML.Models
 @using SM = Sitemap.XML.Models.SitemapManager;
 @{
     var root = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.StartPath);
     <div class="sitemap">
         <ul>
-            <li><a href="@Sitecore.Links.LinkManager.GetItemUrl(root)">@root["title"]</a>
+            <li><a href="@SitemapItem.GetItemUrl(root, Sitecore.Context.Site)">@root[Constants.SeoSettings.Title]</a>
             @RecursiveSitemap(root)
             </li>
         </ul>
@@ -32,7 +33,9 @@
         if (SM.IsEnabledTemplate(localChild) && !SM.IsDisabledItem(localChild))
         {
             @:<li>
-            <a href="@(SM.IsChildUnderSharedLocation(localChild) ? SitemapItem.GetSharedItemUrl(localChild, Sitecore.Context.Site) : LinkManager.GetItemUrl(localChild))">@localChild["Title"]</a>
+            <a href="@(SM.IsChildUnderSharedLocation(localChild) ? 
+                SitemapItem.GetSharedItemUrl(localChild, Sitecore.Context.Site) 
+                : SitemapItem.GetItemUrl(localChild, Sitecore.Context.Site))">@localChild[Constants.SeoSettings.Title]</a>
         }
         if (SM.IsShared(localChild))
         {

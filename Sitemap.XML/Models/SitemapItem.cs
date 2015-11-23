@@ -1,9 +1,6 @@
 ﻿using Sitecore.Data.Items;
-using Sitecore.Data.Query;
 using Sitecore.Sites;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Web;
 
@@ -11,13 +8,15 @@ namespace Sitemap.XML.Models
 {
     public class SitemapItem
     {
+        #region Constructor
+
         public SitemapItem(Item item, SiteContext site, Item parentItem)
         {
-            Priority = item["Priority"];
-            ChangeFrequency = item["Change Frequency"];
-            LastModified = HtmlEncode(item.Statistics.Updated.ToString("yyyy-MM-ddTHH:mm:sszzz"));
+            Priority = item[Constants.SeoSettings.Priority];
+            ChangeFrequency = item[Constants.SeoSettings.ChangeFrequency];
+            LastModified = HtmlEncode(item.Statistics.Updated.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz"));
             Id = item.ID.Guid;
-            Title = item["Title"];
+            Title = item[Constants.SeoSettings.Title];
             var itemUrl = HtmlEncode(GetItemUrl(item, site));
             if (parentItem == null)
             {
@@ -29,19 +28,53 @@ namespace Sitemap.XML.Models
             }
         }
 
+        #endregion
+
+        #region Properties
+
         public string Location { get; set; }
         public string LastModified { get; set; }
         public string ChangeFrequency { get; set; }
         public string Priority { get; set; }
         public Guid Id { get; set; }
         public string Title { get; set; }
+
+        #endregion
+
+        #region Private Methods
+
+        private static string GetSharedItemUrl(Item item, SiteContext site, Item parentItem)
+        {
+            var itemUrl = HtmlEncode(GetItemUrl(item, site));
+            var parentUrl = HtmlEncode(GetItemUrl(parentItem, site));
+            parentUrl = parentUrl.EndsWith("/") ? parentUrl : parentUrl + "/";
+            var pos = itemUrl.LastIndexOf("/") + 1;
+            var itemNamePath = itemUrl.Substring(pos, itemUrl.Length - pos);
+            return HtmlEncode(parentUrl + itemNamePath);
+        }
+
+        public static string GetSharedItemUrl(Item item, SiteContext site)
+        {
+            var parentItem = SitemapManager.GetSharedLocationParent(item);
+            var itemUrl = HtmlEncode(GetItemUrl(item, site));
+            var parentUrl = HtmlEncode(GetItemUrl(parentItem, site));
+            parentUrl = parentUrl.EndsWith("/") ? parentUrl : parentUrl + "/";
+            var pos = itemUrl.LastIndexOf("/") + 1;
+            var itemNamePath = itemUrl.Substring(pos, itemUrl.Length - pos);
+            return HtmlEncode(parentUrl + itemNamePath);
+        }
+
+        #endregion
+
+        #region Public Methods
+
         public static string HtmlEncode(string text)
         {
             string result = HttpUtility.HtmlEncode(text);
             return result;
         }
 
-        private static string GetItemUrl(Item item, SiteContext site)
+        public static string GetItemUrl(Item item, SiteContext site)
         {
             Sitecore.Links.UrlOptions options = Sitecore.Links.UrlOptions.DefaultOptions;
 
@@ -51,7 +84,14 @@ namespace Sitemap.XML.Models
 
             string url = Sitecore.Links.LinkManager.GetItemUrl(item, options);
 
+            var configServerUrl = (new SitemapManagerConfiguration(site.Name)).ServerUrl;
             string serverUrl = SitemapManagerConfiguration.GetServerUrl(site.Name);
+            if (!string.IsNullOrWhiteSpace(configServerUrl))
+            {
+                serverUrl = configServerUrl;
+            }
+            
+            
             if (serverUrl.Contains("http://"))
             {
                 serverUrl = serverUrl.Substring("http://".Length);
@@ -98,25 +138,6 @@ namespace Sitemap.XML.Models
 
         }
 
-        private static string GetSharedItemUrl(Item item, SiteContext site, Item parentItem)
-        {
-            var itemUrl = HtmlEncode(GetItemUrl(item, site));
-            var parentUrl = HtmlEncode(GetItemUrl(parentItem, site));
-            parentUrl = parentUrl.EndsWith("/") ? parentUrl : parentUrl + "/";
-            var pos = itemUrl.LastIndexOf("/") + 1;
-            var itemNamePath = itemUrl.Substring(pos, itemUrl.Length - pos);
-            return HtmlEncode(parentUrl + itemNamePath);
-        }
-
-        public static string GetSharedItemUrl(Item item, SiteContext site)
-        {
-            var parentItem = SitemapManager.GetSharedLocationParent(item);
-            var itemUrl = HtmlEncode(GetItemUrl(item, site));
-            var parentUrl = HtmlEncode(GetItemUrl(parentItem, site));
-            parentUrl = parentUrl.EndsWith("/") ? parentUrl : parentUrl + "/";
-            var pos = itemUrl.LastIndexOf("/") + 1;
-            var itemNamePath = itemUrl.Substring(pos, itemUrl.Length - pos);
-            return HtmlEncode(parentUrl + itemNamePath);
-        }
+        #endregion
     }
 }

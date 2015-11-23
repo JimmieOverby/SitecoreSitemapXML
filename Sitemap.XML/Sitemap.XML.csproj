@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\SitemapHandler.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Models\SitemapItem.cs" />
     <Compile Include="Models\SitemapHandler.cs" />
     <Compile Include="Models\SitemapManager.cs" />

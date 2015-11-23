@@ -1,25 +1,20 @@
 ﻿using Sitecore;
-using Sitecore.Data.Fields;
-using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
-using Sitecore.Layouts;
-using Sitecore.Links;
 using Sitecore.Pipelines.HttpRequest;
 using Sitemap.XML.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Caching;
-using System.Xml;
 
 namespace Sitemap.XML.Configuration
 {
     public class SitemapHandler : HttpRequestProcessor
     {
-        public string excludedPaths { get; set; }
-        public string cacheTime { get; set; }
+        #region Properties
+
+        public string ExcludedPaths { get; set; }
+        public string CacheTime { get; set; }
+
+        #endregion
 
         public override void Process(HttpRequestArgs args)
         {
@@ -57,32 +52,13 @@ namespace Sitemap.XML.Configuration
             finally
             {
                 args.Context.Cache.Add("sitemapxml", content, null,
-                              DateTime.Now.AddSeconds(int.Parse(cacheTime)),
+                              DateTime.Now.AddSeconds(int.Parse(CacheTime)),
                               Cache.NoSlidingExpiration,
                               CacheItemPriority.Normal,
                               null);
                 args.Context.Response.Flush();
                 args.Context.Response.End();
             }
-        }
-
-
-        private bool IsPage(Item item)
-        {
-            var result = false;
-            var layoutField = new LayoutField(item.Fields[FieldIDs.LayoutField]);
-            if (!layoutField.InnerField.HasValue || string.IsNullOrEmpty(layoutField.Value)) return false;
-            var layout = LayoutDefinition.Parse(layoutField.Value);
-            foreach (var deviceObj in layout.Devices)
-            {
-                var device = deviceObj as DeviceDefinition;
-                if (device == null) return false;
-                if (device.Renderings.Count > 0)
-                {
-                    result = true;
-                }
-            }
-            return result;
         }
     }
 }

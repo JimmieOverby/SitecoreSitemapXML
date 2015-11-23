@@ -19,12 +19,11 @@
  *                                                                         *
  * *********************************************************************** */
 
-using System;
-using Sitecore.Web.UI.HtmlControls;
 using Sitecore.Diagnostics;
-using System.Collections.Specialized;
-using System.Text;
+using Sitecore.Web.UI.HtmlControls;
+using System;
 using System.Linq;
+using System.Text;
 
 namespace Sitemap.XML.Models
 {
@@ -32,7 +31,6 @@ namespace Sitemap.XML.Models
     {
         protected Button RefreshButton;
         protected Literal Message;
-
         protected override void OnLoad(EventArgs args)
         {
             base.OnLoad(args);
@@ -41,7 +39,6 @@ namespace Sitemap.XML.Models
                 RefreshButton.Click = "RefreshButtonClick";
             }
         }
-
         protected void RefreshButtonClick()
         {
             var sh = new SitemapHandler();
@@ -73,7 +70,6 @@ namespace Sitemap.XML.Models
 
             RefreshPanel("MainPanel");
         }
-
         private static void RefreshPanel(string panelName)
         {
             Sitecore.Web.UI.HtmlControls.Panel ctl = Sitecore.Context.ClientPage.FindControl(panelName) as

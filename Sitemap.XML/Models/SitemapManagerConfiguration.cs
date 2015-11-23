@@ -19,6 +19,7 @@
  *                                                                         *
  * *********************************************************************** */
 
+using System.Runtime.InteropServices;
 using System.Xml;
 using Sitecore.Configuration;
 using Sitecore.Data;
@@ -40,14 +41,17 @@ namespace Sitemap.XML.Models
 
         #endregion
 
+        #region Constructor 
+
         public SitemapManagerConfiguration(string siteName)
         {
             Assert.IsNotNullOrEmpty(siteName, "siteName");
             _siteName = siteName;
         }
 
+        #endregion
 
-        #region properties
+        #region Properties
 
         public static string XmlnsTpl
         {
@@ -77,7 +81,7 @@ namespace Sitemap.XML.Models
         {
             get
             {
-                return GetValueByNameFromDatabase("Enabled templates");
+                return GetValueByNameFromDatabase(Constants.WebsiteDefinition.EnabledTemplatesFieldName);
             }
         }
 
@@ -85,7 +89,7 @@ namespace Sitemap.XML.Models
         {
             get
             {
-                return GetValueByNameFromDatabase("Exclude items");
+                return GetValueByNameFromDatabase(Constants.WebsiteDefinition.ExcludedItemsFieldName);
             }
         }
 
@@ -93,7 +97,7 @@ namespace Sitemap.XML.Models
         {
             get
             {
-                return GetValueByNameFromDatabase("Server Url");
+                return GetValueByNameFromDatabase(Constants.WebsiteDefinition.ServerUrlFieldName);
             }
         }
 
@@ -118,12 +122,14 @@ namespace Sitemap.XML.Models
         {
             get
             {
-                return GetValueByNameFromDatabase("File Name");
+                return GetValueByNameFromDatabase(Constants.WebsiteDefinition.FileNameFieldName);
             }
         }
              
         
         #endregion properties
+
+        #region Private Methods
 
         private static string GetValueByName(string name)
         {
@@ -159,9 +165,13 @@ namespace Sitemap.XML.Models
             return result;
         }
 
+        #endregion
+
+        #region Public Methods
+
         public static IEnumerable<string> GetSiteNames()
         {
-            const string sitemapXmlSystemRootId = "{6003D67E-0000-4A4D-BFB1-11408B9ADCFD}";
+            var sitemapXmlSystemRootId = Constants.SitemapModuleSettingsRootItemId;
             var configRoot = Context.ContentDatabase.GetItem(sitemapXmlSystemRootId);
             if (configRoot == null) return null;
 
@@ -188,5 +198,7 @@ namespace Sitemap.XML.Models
 
             return result;
         }
+
+        #endregion
     }
 }

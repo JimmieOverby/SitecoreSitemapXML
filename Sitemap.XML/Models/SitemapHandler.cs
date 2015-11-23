@@ -20,12 +20,6 @@
  * *********************************************************************** */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Sitecore.Configuration;
-using Sitecore.Data;
-using Sitecore.Data.Items;
-using System.Collections;
 
 namespace Sitemap.XML.Models
 {

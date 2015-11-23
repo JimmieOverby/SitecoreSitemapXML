@@ -19,42 +19,33 @@
  *                                                                         *
  * *********************************************************************** */
 
-using System.Collections.Generic;
-using System.IO;
-using System.Web.SessionState;
-using System.Xml;
-using Sitecore.ContentSearch.Sharding;
-using Sitecore.Data.Items;
-using Sitecore.Sites;
-using Sitecore.Data;
-using Sitecore.Configuration;
-using Sitecore.Diagnostics;
-using System.Web;
-using System.Text;
-using System.Linq;
-using System.Collections.Specialized;
-using System.Collections;
-using Sitecore.Data.Fields;
+using Sitecore;
 using Sitecore.Buckets.Managers;
+using Sitecore.Configuration;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.SearchTypes;
-using Sitecore;
+using Sitecore.Data;
+using Sitecore.Data.Fields;
+using Sitecore.Data.Items;
+using Sitecore.Diagnostics;
+using Sitecore.Sites;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Xml;
 
 namespace Sitemap.XML.Models
 {
     public class SitemapManager
     {
-        //private static string sitemapUrl;
+        #region Fields 
+
         private readonly SitemapManagerConfiguration _config;
 
-        public Database Db
-        {
-            get
-            {
-                Database database = Factory.GetDatabase(SitemapManagerConfiguration.WorkingDatabase);
-                return database;
-            }
-        }
+        #endregion
+
+        #region Constructor
 
         public SitemapManager(SitemapManagerConfiguration config)
         {
@@ -66,87 +57,42 @@ namespace Sitemap.XML.Models
             }
         }
 
+        #endregion
 
-        private void BuildSiteMap()
+        #region Properties
+
+        public Database Db
         {
-            Site site = Sitecore.Sites.SiteManager.GetSite(_config.SiteName);
-            SiteContext siteContext = Factory.GetSite(_config.SiteName);
-            string rootPath = siteContext.StartPath;
-
-            List<SitemapItem> items = GetSitemapItems(rootPath);
-
-            string fullPath = MainUtil.MapPath(string.Concat("/", _config.FileName));
-            string xmlContent = this.BuildSitemapXML(items, site);
-
-            StreamWriter strWriter = new StreamWriter(fullPath, false);
-            strWriter.Write(xmlContent);
-            strWriter.Close();
-
+            get
+            {
+                Database database = Factory.GetDatabase(SitemapManagerConfiguration.WorkingDatabase);
+                return database;
+            }
         }
 
+        #endregion
 
-        public string BuildSiteMapForHandler()
+        #region Private Methods
+
+        private static IEnumerable<Item> GetSharedContentDefinitions()
         {
-            var site = Sitecore.Sites.SiteManager.GetSite(Sitecore.Context.Site.Name);
-            var siteContext = Factory.GetSite(Sitecore.Context.Site.Name);
-            string rootPath = siteContext.StartPath;
+            var siteNode = GetContextSiteDefinitionItem();
+            if (siteNode == null || string.IsNullOrWhiteSpace(siteNode.Name)) return null;
 
-            var items = GetSitemapItems(rootPath);
+            var sharedItemParent = siteNode.Children[Constants.SharedContent.FolderName];
+            if (sharedItemParent == null) return null;
 
-            string xmlContent = this.BuildSitemapXML(items, site);
-            return xmlContent;
+            var sharedDefinitions = sharedItemParent.Children;
+            return sharedDefinitions;
         }
 
-
-        public bool SubmitSitemapToSearchenginesByHttp()
+        private static Item GetContextSiteDefinitionItem()
         {
-            if (!SitemapManagerConfiguration.IsProductionEnvironment)
-                return false;
-
-            bool result = false;
-            Item sitemapConfig = Db.Items[_config.SitemapConfigurationItemPath];
-
-            if (sitemapConfig != null)
-            {
-                string engines = sitemapConfig.Fields["Search engines"].Value;
-                foreach (string id in engines.Split('|'))
-                {
-                    Item engine = Db.Items[id];
-                    if (engine != null)
-                    {
-                        string engineHttpRequestString = engine.Fields["HttpRequestString"].Value;
-                        var filePath = !SitemapManagerConfiguration.GetServerUrl(_config.SiteName).EndsWith("/")
-                            ? SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + "/"
-                            : SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + _config.FileName;
-                        SubmitEngine(engineHttpRequestString, filePath);
-                    }
-                }
-                result = true;
-            }
-
-            return result;
-        }
-
-        public void RegisterSitemapToRobotsFile()
-        {
-
-            string robotsPath = MainUtil.MapPath(string.Concat("/", "robots.txt"));
-            StringBuilder sitemapContent = new StringBuilder(string.Empty);
-            if (File.Exists(robotsPath))
-            {
-                StreamReader sr = new StreamReader(robotsPath);
-                sitemapContent.Append(sr.ReadToEnd());
-                sr.Close();
-            }
-
-            StreamWriter sw = new StreamWriter(robotsPath, false);
-            string sitemapLine = string.Concat("Sitemap: ", _config.FileName);
-            if (!sitemapContent.ToString().Contains(sitemapLine))
-            {
-                sitemapContent.AppendLine(sitemapLine);
-            }
-            sw.Write(sitemapContent.ToString());
-            sw.Close();
+            var sitemapModuleItem = Context.Database.GetItem(Constants.SitemapModuleSettingsRootItemId);
+            var contextSite = Context.GetSiteName().ToLower();
+            if (!sitemapModuleItem.Children.Any()) return null;
+            var siteNode = sitemapModuleItem.Children.FirstOrDefault(i => i.Key == contextSite);
+            return siteNode;
         }
 
         private string BuildSitemapXML(List<SitemapItem> items, Site site)
@@ -211,12 +157,12 @@ namespace Sitemap.XML.Models
                 string request = string.Concat(engine, SitemapItem.HtmlEncode(sitemapUrl));
 
                 System.Net.HttpWebRequest httpRequest =
-                    (System.Net.HttpWebRequest) System.Net.HttpWebRequest.Create(request);
+                    (System.Net.HttpWebRequest)System.Net.HttpWebRequest.Create(request);
                 try
                 {
                     System.Net.WebResponse webResponse = httpRequest.GetResponse();
 
-                    System.Net.HttpWebResponse httpResponse = (System.Net.HttpWebResponse) webResponse;
+                    System.Net.HttpWebResponse httpResponse = (System.Net.HttpWebResponse)webResponse;
                     if (httpResponse.StatusCode != System.Net.HttpStatusCode.OK)
                     {
                         Log.Error(string.Format("Cannot submit sitemap to \"{0}\"", engine), this);
@@ -229,6 +175,22 @@ namespace Sitemap.XML.Models
             }
         }
 
+        private void BuildSiteMap()
+        {
+            Site site = Sitecore.Sites.SiteManager.GetSite(_config.SiteName);
+            SiteContext siteContext = Factory.GetSite(_config.SiteName);
+            string rootPath = siteContext.StartPath;
+
+            List<SitemapItem> items = GetSitemapItems(rootPath);
+
+            string fullPath = MainUtil.MapPath(string.Concat("/", _config.FileName));
+            string xmlContent = this.BuildSitemapXML(items, site);
+
+            StreamWriter strWriter = new StreamWriter(fullPath, false);
+            strWriter.Write(xmlContent);
+            strWriter.Close();
+
+        }
 
         private List<SitemapItem> GetSitemapItems(string rootPath)
         {
@@ -241,26 +203,25 @@ namespace Sitemap.XML.Models
             Item contentRoot = database.Items[rootPath];
 
             Item[] descendants;
-            Sitecore.Security.Accounts.User user = Sitecore.Security.Accounts.User.FromName(@"extranet\Anonymous", true);
+            Sitecore.Security.Accounts.User user = Sitecore.Security.Accounts.User.FromName(Constants.SitemapParserUser, true);
             using (new Sitecore.Security.Accounts.UserSwitcher(user))
             {
                 descendants = contentRoot.Axes.GetDescendants();
             }
 
             // getting shared content
-            
             var sharedModels = new List<SitemapItem>();
-            var sharedDefinitions = Db.SelectItems("fast:" + _config.SitemapConfigurationItemPath + "/Shared Content/*");
+            var sharedDefinitions = Db.SelectItems(string.Format("fast:{0}/{1}/*", _config.SitemapConfigurationItemPath, Constants.SharedContent.FolderName));
             var site = Factory.GetSite(_config.SiteName);
             List<string> enabledTemplates = this.BuildListFromString(disTpls, '|');
             List<string> excludedNames = this.BuildListFromString(exclNames, '|');
             foreach (var sharedDefinition in sharedDefinitions)
             {
-                if (string.IsNullOrWhiteSpace(sharedDefinition["Content Location"]) ||
-                    string.IsNullOrWhiteSpace(sharedDefinition["Parent Item"]))
+                if (string.IsNullOrWhiteSpace(sharedDefinition[Constants.SharedContent.ContentLocationFieldName]) ||
+                    string.IsNullOrWhiteSpace(sharedDefinition[Constants.SharedContent.ParentItemFieldName]))
                     continue;
-                var contentLocation = ((DatasourceField) sharedDefinition.Fields["Content Location"]).TargetItem;
-                var parentItem = ((DatasourceField) sharedDefinition.Fields["Parent Item"]).TargetItem;
+                var contentLocation = ((DatasourceField)sharedDefinition.Fields[Constants.SharedContent.ContentLocationFieldName]).TargetItem;
+                var parentItem = ((DatasourceField)sharedDefinition.Fields[Constants.SharedContent.ParentItemFieldName]).TargetItem;
                 var sharedItems = new List<Item>();
                 if (BucketManager.IsBucket(contentLocation))
                 {
@@ -269,7 +230,7 @@ namespace Sitemap.XML.Models
                     {
                         var searchResultItem =
                             searchContext.GetQueryable<SearchResultItem>()
-                                .Where(item => item.Paths.Contains(contentLocation.ID) && item.ItemId!=contentLocation.ID)
+                                .Where(item => item.Paths.Contains(contentLocation.ID) && item.ItemId != contentLocation.ID)
                                 .ToList();
                         sharedItems.AddRange(searchResultItem.Select(i => i.GetItem()));
                     }
@@ -280,9 +241,9 @@ namespace Sitemap.XML.Models
                 }
 
                 var cleanedSharedItems = from itm in sharedItems
-                    where itm.Template != null && enabledTemplates.Select(t=>t.ToLower()).Contains(itm.Template.ID.ToString().ToLower()) &&
-                          !excludedNames.Select(t => t.ToLower()).Contains(itm.ID.ToString().ToLower())
-                    select itm;
+                                         where itm.Template != null && enabledTemplates.Select(t => t.ToLower()).Contains(itm.Template.ID.ToString().ToLower()) &&
+                                               !excludedNames.Select(t => t.ToLower()).Contains(itm.ID.ToString().ToLower())
+                                         select itm;
                 var sharedSitemapItems = cleanedSharedItems.Select(i => new SitemapItem(i, site, parentItem));
                 sharedModels.AddRange(sharedSitemapItems);
             }
@@ -291,9 +252,9 @@ namespace Sitemap.XML.Models
             sitemapItems.Insert(0, contentRoot);
 
             var selected = from itm in sitemapItems
-                where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
-                      !excludedNames.Contains(itm.ID.ToString())
-                select itm;
+                           where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
+                                 !excludedNames.Contains(itm.ID.ToString())
+                           select itm;
 
             var selectedModels = selected.Select(i => new SitemapItem(i, site, null)).ToList();
             selectedModels.AddRange(sharedModels);
@@ -304,8 +265,8 @@ namespace Sitemap.XML.Models
         {
             string[] enabledTemplates = str.Split(separator);
             var selected = from dtp in enabledTemplates
-                where !string.IsNullOrEmpty(dtp)
-                select dtp;
+                           where !string.IsNullOrEmpty(dtp)
+                           select dtp;
 
             List<string> result = selected.ToList();
 
@@ -324,7 +285,7 @@ namespace Sitemap.XML.Models
             var sharedDefinitions = GetSharedContentDefinitions();
 
             var sharedItemContentRoots =
-                sharedDefinitions.Select(i => ((DatasourceField) i.Fields["Parent Item"]).TargetItem).ToList();
+                sharedDefinitions.Select(i => ((DatasourceField)i.Fields[Constants.SharedContent.ParentItemFieldName]).TargetItem).ToList();
             if (!sharedItemContentRoots.Any()) return false;
 
             return sharedItemContentRoots.Any(i => i.ID == item.ID);
@@ -333,8 +294,8 @@ namespace Sitemap.XML.Models
         public static Item GetSharedParent(Item item)
         {
             var sharedNodes = GetSharedContentDefinitions();
-            var sharedParent = sharedNodes.FirstOrDefault(i => ((DatasourceField)i.Fields["Parent Item"]).TargetItem.ID == item.ID);
-            var sharedLocation =  sharedParent != null ? ((DatasourceField) sharedParent.Fields["Content Location"]).TargetItem : null;
+            var sharedParent = sharedNodes.FirstOrDefault(i => ((DatasourceField)i.Fields[Constants.SharedContent.ParentItemFieldName]).TargetItem.ID == item.ID);
+            var sharedLocation = sharedParent != null ? ((DatasourceField)sharedParent.Fields[Constants.SharedContent.ContentLocationFieldName]).TargetItem : null;
 
             return sharedLocation;
         }
@@ -342,7 +303,7 @@ namespace Sitemap.XML.Models
         public static bool IsChildUnderSharedLocation(Item child)
         {
             var sharedNodes = GetSharedContentDefinitions();
-            var sharedContentLocations = sharedNodes.Select(n=>((DatasourceField)n.Fields["Content Location"]).TargetItem);
+            var sharedContentLocations = sharedNodes.Select(n => ((DatasourceField)n.Fields[Constants.SharedContent.ContentLocationFieldName]).TargetItem);
             var isUnderShared = sharedContentLocations.Any(l => l.Axes.IsAncestorOf(child));
             return isUnderShared;
         }
@@ -351,8 +312,8 @@ namespace Sitemap.XML.Models
         {
             var sharedNodes = GetSharedContentDefinitions();
             var parent = sharedNodes
-                .Where(n => ((DatasourceField)n.Fields["Content Location"]).TargetItem.Axes.IsAncestorOf(child))
-                .Select(n => ((DatasourceField)n.Fields["Parent Item"]).TargetItem)
+                .Where(n => ((DatasourceField)n.Fields[Constants.SharedContent.ContentLocationFieldName]).TargetItem.Axes.IsAncestorOf(child))
+                .Select(n => ((DatasourceField)n.Fields[Constants.SharedContent.ParentItemFieldName]).TargetItem)
                 .FirstOrDefault();
             return parent;
         }
@@ -378,25 +339,73 @@ namespace Sitemap.XML.Models
 
         #endregion
 
-        private static IEnumerable<Item> GetSharedContentDefinitions()
+        #endregion
+
+        #region Public Members
+
+        public string BuildSiteMapForHandler()
         {
-            var siteNode = GetContextSiteDefinitionItem();
-            if (siteNode == null || string.IsNullOrWhiteSpace(siteNode.Name)) return null;
+            var site = Sitecore.Sites.SiteManager.GetSite(Sitecore.Context.Site.Name);
+            var siteContext = Factory.GetSite(Sitecore.Context.Site.Name);
+            string rootPath = siteContext.StartPath;
 
-            var sharedItemParent = siteNode.Children["Shared Content"];
-            if (sharedItemParent == null) return null;
+            var items = GetSitemapItems(rootPath);
 
-            var sharedDefinitions = sharedItemParent.Children;
-            return sharedDefinitions;
+            string xmlContent = this.BuildSitemapXML(items, site);
+            return xmlContent;
+        }
+        
+        public bool SubmitSitemapToSearchenginesByHttp()
+        {
+            if (!SitemapManagerConfiguration.IsProductionEnvironment)
+                return false;
+
+            bool result = false;
+            Item sitemapConfig = Db.Items[_config.SitemapConfigurationItemPath];
+
+            if (sitemapConfig != null)
+            {
+                string engines = sitemapConfig.Fields[Constants.WebsiteDefinition.SearchEnginesFieldName].Value;
+                foreach (string id in engines.Split('|'))
+                {
+                    Item engine = Db.Items[id];
+                    if (engine != null)
+                    {
+                        string engineHttpRequestString = engine.Fields[Constants.SitemapSubmissionUriFieldName].Value;
+                        var filePath = !SitemapManagerConfiguration.GetServerUrl(_config.SiteName).EndsWith("/")
+                            ? SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + "/"
+                            : SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + _config.FileName;
+                        SubmitEngine(engineHttpRequestString, filePath);
+                    }
+                }
+                result = true;
+            }
+
+            return result;
         }
 
-        private static Item GetContextSiteDefinitionItem()
+        public void RegisterSitemapToRobotsFile()
         {
-            var sitemapModuleItem = Context.Database.GetItem("{6003D67E-0000-4A4D-BFB1-11408B9ADCFD}");
-            var contextSite = Context.GetSiteName().ToLower();
-            if (!sitemapModuleItem.Children.Any()) return null;
-            var siteNode = sitemapModuleItem.Children.FirstOrDefault(i => i.Key == contextSite);
-            return siteNode;
+
+            string robotsPath = MainUtil.MapPath(string.Concat("/", Constants.RobotsFileName));
+            StringBuilder sitemapContent = new StringBuilder(string.Empty);
+            if (File.Exists(robotsPath))
+            {
+                StreamReader sr = new StreamReader(robotsPath);
+                sitemapContent.Append(sr.ReadToEnd());
+                sr.Close();
+            }
+
+            StreamWriter sw = new StreamWriter(robotsPath, false);
+            string sitemapLine = string.Concat("Sitemap: ", _config.FileName);
+            if (!sitemapContent.ToString().Contains(sitemapLine))
+            {
+                sitemapContent.AppendLine(sitemapLine);
+            }
+            sw.Write(sitemapContent.ToString());
+            sw.Close();
         }
+
+        #endregion
     }
 }
