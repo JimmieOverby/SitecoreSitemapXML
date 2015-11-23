@@ -1,4 +1,5 @@
 ﻿using Sitecore.Data.Items;
+using Sitecore.Data.Query;
 using Sitecore.Sites;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Sitemap.XML.Models
             ChangeFrequency = item["Change Frequency"];
             LastModified = HtmlEncode(item.Statistics.Updated.ToString("yyyy-MM-ddTHH:mm:sszzz"));
             Id = item.ID.Guid;
+            Title = item["Title"];
             var itemUrl = HtmlEncode(GetItemUrl(item, site));
             if (parentItem == null)
             {
@@ -23,11 +25,7 @@ namespace Sitemap.XML.Models
             }
             else
             {
-                var parentUrl = HtmlEncode(GetItemUrl(parentItem, site));
-                parentUrl = parentUrl.EndsWith("/") ? parentUrl : parentUrl + "/";
-                var pos = itemUrl.LastIndexOf("/") + 1;
-                var itemNamePath = itemUrl.Substring(pos, itemUrl.Length - pos);
-                Location = parentUrl + itemNamePath;
+                Location = GetSharedItemUrl(item, site, parentItem);
             }
         }
 
@@ -36,14 +34,14 @@ namespace Sitemap.XML.Models
         public string ChangeFrequency { get; set; }
         public string Priority { get; set; }
         public Guid Id { get; set; }
-
+        public string Title { get; set; }
         public static string HtmlEncode(string text)
         {
             string result = HttpUtility.HtmlEncode(text);
             return result;
         }
 
-        private string GetItemUrl(Item item, SiteContext site)
+        private static string GetItemUrl(Item item, SiteContext site)
         {
             Sitecore.Links.UrlOptions options = Sitecore.Links.UrlOptions.DefaultOptions;
 
@@ -98,6 +96,16 @@ namespace Sitemap.XML.Models
 
             return sb.ToString();
 
+        }
+
+        private static string GetSharedItemUrl(Item item, SiteContext site, Item parentItem)
+        {
+            var itemUrl = HtmlEncode(GetItemUrl(item, site));
+            var parentUrl = HtmlEncode(GetItemUrl(parentItem, site));
+            parentUrl = parentUrl.EndsWith("/") ? parentUrl : parentUrl + "/";
+            var pos = itemUrl.LastIndexOf("/") + 1;
+            var itemNamePath = itemUrl.Substring(pos, itemUrl.Length - pos);
+            return HtmlEncode(parentUrl + itemNamePath);
         }
     }
 }

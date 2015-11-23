@@ -312,6 +312,8 @@ namespace Sitemap.XML.Models
             return result;
         }
 
+        #region View Helpers
+
         public static bool IsShared(Item item)
         {
             var sharedDefinitions = GetSharedContentDefinitions();
@@ -350,6 +352,8 @@ namespace Sitemap.XML.Models
                 ? false
                 : items.Any() && items.Any(IsEnabledTemplate) && items.Count(IsDisabledItem) < items.Count();
         }
+
+        #endregion
 
         private static IEnumerable<Item> GetSharedContentDefinitions()
         {

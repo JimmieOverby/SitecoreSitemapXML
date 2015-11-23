@@ -1,6 +1,7 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 @using Sitecore.Data.Items
 @using Sitemap.XML.Models
+@using SM = Sitemap.XML.Models.SitemapManager;
 @{
     var root = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.StartPath);
     <div class="sitemap">
@@ -14,39 +15,39 @@
 
 @helper RecursiveSitemap(Item parentItem)
 {
-
-    if (SitemapManager.IsShared(parentItem))
+    if (SM.IsShared(parentItem))
     {
-        parentItem = SitemapManager.GetSharedParent(parentItem);
+        parentItem = SM.GetSharedParent(parentItem);
     }
     var childList = parentItem.Children;
 
-    if (SitemapManager.ContainsItemsToShow(childList))
+    if (SM.ContainsItemsToShow(childList))
     {
         @:<ul>
     }
     foreach (Item child in childList)
     {
         var localChild = child;
-        if (SitemapManager.IsEnabledTemplate(localChild) && !SitemapManager.IsDisabledItem(localChild))
+        if (SM.IsEnabledTemplate(localChild) && !SM.IsDisabledItem(localChild))
         {
+            var item = new SitemapItem(localChild, Sitecore.Context.Site, SM.IsShared(parentItem)? parentItem:null);
             @:<li>
-            <a href="@Sitecore.Links.LinkManager.GetItemUrl(localChild)">@localChild["title"]</a>
+            <a href="@item.Location">@item.Title</a>
         }
-        if (SitemapManager.IsShared(localChild))
+        if (SM.IsShared(localChild))
         {
-            localChild = SitemapManager.GetSharedParent(localChild);
+            localChild = SM.GetSharedParent(localChild);
         }
         if (localChild.Children.Count != 0)
         {
             @RecursiveSitemap(localChild)
         }
-        if (SitemapManager.IsEnabledTemplate(localChild) && !SitemapManager.IsDisabledItem(localChild))
+        if (SM.IsEnabledTemplate(localChild) && !SM.IsDisabledItem(localChild))
         {
             @:</li>
         }
     }
-    if (SitemapManager.ContainsItemsToShow(childList))
+    if (SM.ContainsItemsToShow(childList))
     {
         @:</ul>
     }
