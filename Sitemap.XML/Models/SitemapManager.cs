@@ -19,6 +19,7 @@
  *                                                                         *
  * *********************************************************************** */
 
+using System.Web.UI;
 using Sitecore;
 using Sitecore.Buckets.Managers;
 using Sitecore.Configuration;
@@ -280,12 +281,19 @@ namespace Sitemap.XML.Models
         public static bool IsShared(Item item)
         {
             var sharedDefinitions = GetSharedContentDefinitions();
-
+            if (sharedDefinitions == null) return false;
             var sharedItemContentRoots =
                 sharedDefinitions.Select(i => ((DatasourceField)i.Fields[Constants.SharedContent.ParentItemFieldName]).TargetItem).ToList();
             if (!sharedItemContentRoots.Any()) return false;
 
             return sharedItemContentRoots.Any(i => i.ID == item.ID);
+        }
+
+        public static bool SitemapDefinitionExists()
+        {
+            var sitemapModuleSettingsItem = Context.Database.GetItem(Constants.SitemapModuleSettingsRootItemId);
+            var siteDefinition = sitemapModuleSettingsItem.Children[Context.Site.Name];
+            return siteDefinition != null;
         }
 
         public static Item GetSharedParent(Item item)
@@ -362,16 +370,17 @@ namespace Sitemap.XML.Models
 
             if (sitemapConfig != null)
             {
+                //TODO: URL
                 string engines = sitemapConfig.Fields[Constants.WebsiteDefinition.SearchEnginesFieldName].Value;
+                var filePath = !_config.ServerUrl.EndsWith("/")
+                            ? _config.ServerUrl + "/" + _config.FileName
+                            : _config.ServerUrl + _config.FileName;
                 foreach (string id in engines.Split('|'))
                 {
                     Item engine = Db.Items[id];
                     if (engine != null)
                     {
                         string engineHttpRequestString = engine.Fields[Constants.SitemapSubmissionUriFieldName].Value;
-                        var filePath = !SitemapManagerConfiguration.GetServerUrl(_config.SiteName).EndsWith("/")
-                            ? SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + "/"
-                            : SitemapManagerConfiguration.GetServerUrl(_config.SiteName) + _config.FileName;
                         SubmitEngine(engineHttpRequestString, filePath);
                     }
                 }
@@ -383,7 +392,7 @@ namespace Sitemap.XML.Models
 
         public void RegisterSitemapToRobotsFile()
         {
-
+            if (string.IsNullOrWhiteSpace(_config.FileName)) return;
             string robotsPath = MainUtil.MapPath(string.Concat("/", Constants.RobotsFileName));
             StringBuilder sitemapContent = new StringBuilder(string.Empty);
             if (File.Exists(robotsPath))

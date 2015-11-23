@@ -33,6 +33,8 @@ namespace Sitemap.XML.Models
                 var config = new SitemapManagerConfiguration(site);
                 var sitemapManager = new SitemapManager(config);
                 sitemapManager.SubmitSitemapToSearchenginesByHttp();
+
+                if (!config.GenerateRobotsFile) continue;
                 sitemapManager.RegisterSitemapToRobotsFile();
             }
         }

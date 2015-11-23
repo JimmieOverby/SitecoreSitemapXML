@@ -5,6 +5,10 @@
 @using Sitemap.XML.Models
 @using SM = Sitemap.XML.Models.SitemapManager;
 @{
+    if (!SM.SitemapDefinitionExists())
+    {
+        return;
+    }
     var root = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.StartPath);
     <div class="sitemap">
         <ul>

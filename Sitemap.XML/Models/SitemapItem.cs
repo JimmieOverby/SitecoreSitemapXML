@@ -84,13 +84,7 @@ namespace Sitemap.XML.Models
 
             string url = Sitecore.Links.LinkManager.GetItemUrl(item, options);
 
-            var configServerUrl = (new SitemapManagerConfiguration(site.Name)).ServerUrl;
-            string serverUrl = SitemapManagerConfiguration.GetServerUrl(site.Name);
-            if (!string.IsNullOrWhiteSpace(configServerUrl))
-            {
-                serverUrl = configServerUrl;
-            }
-            
+            var serverUrl = (new SitemapManagerConfiguration(site.Name)).ServerUrl;
             
             if (serverUrl.Contains("http://"))
             {

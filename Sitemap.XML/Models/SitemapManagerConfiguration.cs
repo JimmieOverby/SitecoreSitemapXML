@@ -20,6 +20,7 @@
  * *********************************************************************** */
 
 using System.Runtime.InteropServices;
+using System.Web;
 using System.Xml;
 using Sitecore.Configuration;
 using Sitecore.Data;
@@ -77,6 +78,15 @@ namespace Sitemap.XML.Models
             }
         }
 
+        public bool GenerateRobotsFile
+        {
+            get
+            {
+                string doGenerate = GetValueByName("generateRobotsFile");
+                return !string.IsNullOrEmpty(doGenerate) && (doGenerate.ToLower() == "true" || doGenerate == "1");
+            }
+        }
+
         public string EnabledTemplates
         {
             get
@@ -97,7 +107,9 @@ namespace Sitemap.XML.Models
         {
             get
             {
-                return GetValueByNameFromDatabase(Constants.WebsiteDefinition.ServerUrlFieldName);
+                var url =  GetValueByNameFromDatabase(Constants.WebsiteDefinition.ServerUrlFieldName);
+                return string.IsNullOrWhiteSpace(url) ? HttpContext.Current.Request.Url.Scheme+"://" 
+                    +Context.Site.Properties["hostname"] : url;
             }
         }
 
@@ -172,10 +184,10 @@ namespace Sitemap.XML.Models
         public static IEnumerable<string> GetSiteNames()
         {
             var sitemapXmlSystemRootId = Constants.SitemapModuleSettingsRootItemId;
-            var configRoot = Context.ContentDatabase.GetItem(sitemapXmlSystemRootId);
+            var configRoot = Factory.GetDatabase(WorkingDatabase).GetItem(sitemapXmlSystemRootId);
             if (configRoot == null) return null;
 
-            var configs = configRoot.Children;
+            var configs = configRoot.Children.Where(i=>i.TemplateName!="Folder");
             if (!configs.Any()) return null;
 
             var siteNames = configs.Select(c => c.Name);

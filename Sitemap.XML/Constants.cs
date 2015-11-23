@@ -18,7 +18,7 @@ namespace Sitemap.XML
             public static string SearchEnginesFieldName = "Search Engines";
             public static string EnabledTemplatesFieldName = "Enabled Templates";
             public static string ExcludedItemsFieldName = "Excluded Items";
-            public static string FileNameFieldName = "FileName";
+            public static string FileNameFieldName = "File Name";
             public static string ServerUrlFieldName = "Server Url";
         }
 
