@@ -344,6 +344,13 @@ namespace Sitemap.XML.Models
             return config.ExcludeItems.ToLower().Contains(item.ID.ToGuid().ToString());
         }
 
+        public static bool ContainsItemsToShow(IEnumerable<Item> items)
+        {
+            return items == null
+                ? false
+                : items.Any() && items.Any(IsEnabledTemplate) && items.Count(IsDisabledItem) < items.Count();
+        }
+
         private static IEnumerable<Item> GetSharedContentDefinitions()
         {
             var siteNode = GetContextSiteDefinitionItem();

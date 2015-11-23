@@ -4,36 +4,51 @@
 @{
     var root = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.StartPath);
     <div class="sitemap">
-        <a href="@Sitecore.Links.LinkManager.GetItemUrl(root)">@root["title"]</a>
-        @RecursiveSitemap(root)
+        <ul>
+            <li><a href="@Sitecore.Links.LinkManager.GetItemUrl(root)">@root["title"]</a>
+            @RecursiveSitemap(root)
+            </li>
+        </ul>
     </div>
 }
 
 @helper RecursiveSitemap(Item parentItem)
 {
-    <ul>
-        @{
-            if (SitemapManager.IsShared(parentItem))
-            {
-                parentItem = SitemapManager.GetSharedParent(parentItem);
-            }
-            Sitecore.Collections.ChildList childList = parentItem.Children;
-            foreach (Item child in childList)
-            {
-                var localChild = child;
-                if (SitemapManager.IsEnabledTemplate(localChild) && !SitemapManager.IsDisabledItem(localChild))
-                {
-                    <li><a href="@Sitecore.Links.LinkManager.GetItemUrl(localChild)">@localChild["title"]</a></li>
-                }
-                if (SitemapManager.IsShared(localChild))
-                {
-                    localChild = SitemapManager.GetSharedParent(localChild);
-                }
-                if (localChild.Children.Count != 0)
-                {
-                    @RecursiveSitemap(localChild);
-                }
-            }
+
+    if (SitemapManager.IsShared(parentItem))
+    {
+        parentItem = SitemapManager.GetSharedParent(parentItem);
+    }
+    var childList = parentItem.Children;
+
+    if (SitemapManager.ContainsItemsToShow(childList))
+    {
+        @:<ul>
+    }
+    foreach (Item child in childList)
+    {
+        var localChild = child;
+        if (SitemapManager.IsEnabledTemplate(localChild) && !SitemapManager.IsDisabledItem(localChild))
+        {
+            @:<li>
+            <a href="@Sitecore.Links.LinkManager.GetItemUrl(localChild)">@localChild["title"]</a>
         }
-    </ul>
+        if (SitemapManager.IsShared(localChild))
+        {
+            localChild = SitemapManager.GetSharedParent(localChild);
+        }
+        if (localChild.Children.Count != 0)
+        {
+            @RecursiveSitemap(localChild)
+        }
+        if (SitemapManager.IsEnabledTemplate(localChild) && !SitemapManager.IsDisabledItem(localChild))
+        {
+            @:</li>
+        }
+    }
+    if (SitemapManager.ContainsItemsToShow(childList))
+    {
+        @:</ul>
+    }
+
 }
