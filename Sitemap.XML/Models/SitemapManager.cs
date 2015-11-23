@@ -79,10 +79,7 @@ namespace Sitemap.XML.Models
             var siteNode = GetContextSiteDefinitionItem();
             if (siteNode == null || string.IsNullOrWhiteSpace(siteNode.Name)) return null;
 
-            var sharedItemParent = siteNode.Children[Constants.SharedContent.FolderName];
-            if (sharedItemParent == null) return null;
-
-            var sharedDefinitions = sharedItemParent.Children;
+            var sharedDefinitions = siteNode.Children;
             return sharedDefinitions;
         }
 
@@ -211,7 +208,7 @@ namespace Sitemap.XML.Models
 
             // getting shared content
             var sharedModels = new List<SitemapItem>();
-            var sharedDefinitions = Db.SelectItems(string.Format("fast:{0}/{1}/*", _config.SitemapConfigurationItemPath, Constants.SharedContent.FolderName));
+            var sharedDefinitions = Db.SelectItems(string.Format("fast:{0}/*", _config.SitemapConfigurationItemPath));
             var site = Factory.GetSite(_config.SiteName);
             List<string> enabledTemplates = this.BuildListFromString(disTpls, '|');
             List<string> excludedNames = this.BuildListFromString(exclNames, '|');

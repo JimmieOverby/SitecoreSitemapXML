@@ -37,11 +37,49 @@
     <DisableFileDeployment>False</DisableFileDeployment>
     <EnableValidations>False</EnableValidations>
     <ValidationSettingsFilePath>.\TacoBell.TDS.Core_Debug.xml</ValidationSettingsFilePath>
-    <PackageName>Sitemap.XML.Master</PackageName>
-    <GeneratePackage>False</GeneratePackage>
+    <PackageName>Ultimate Sitemap.XML 1.0</PackageName>
+    <GeneratePackage>True</GeneratePackage>
     <SeperateFilesAndItems>False</SeperateFilesAndItems>
     <PackageExcludeCode>False</PackageExcludeCode>
     <AddDateTimeToPackageName>False</AddDateTimeToPackageName>
+    <PackageAuthor>Vasiliy Fomichev</PackageAuthor>
+    <PackagePublisher>Vasiliy Fomichev</PackagePublisher>
+    <PackageReadme>HOW TO USE THE SITEMAP XML
+
+  1.  Install the package.
+  2.  Perform a site publish.
+  3.  Open the SitemapXML.config under the App_Config\Include folder. In the SitemapXML.config file you can specify the following:
+       
+        How the file with XML will be named
+        The Sitemap root path.
+        The Database that will be used for the sitemap generation.
+        Where the sitemap configuration item will be stored.
+        Remember to specify the siteRootPath variable.
+<sitemapVariables><sitemapVariable name="fileName" value="sitemap.xml" /><sitemapVariable name="xmlnsTpl" value="http://www.sitemaps.org/schemas/sitemap/0.9" /><sitemapVariable name="siteRootPath" value="/sitecore/content/home" /><sitemapVariable name="database" value="web" /><sitemapVariable name="sitemapConfigurationItemPath" value="/sitecore/system/Modules/Sitemap XML/Sitemap configuration" /></sitemapVariables>
+Version 2
+        In version 2, it supports having multiple sites, so the config file now looks like this
+          <sitemapVariables><sitemapVariable name="xmlnsTpl" value="http://www.sitemaps.org/schemas/sitemap/0.9" /><sitemapVariable name="database" value="web" /><sitemapVariable name="sitemapConfigurationItemPath" value="/sitecore/system/Modules/Sitemap XML/Sitemap configuration" /><sitemapVariable name="productionEnvironment" value="false" /><sites><!-- 
+      serverUrl: (optional) will be used to generate url in sitemap file. 
+      If serverUrl left blank, the hostname value set in web.config file for each site will be used.
+      Example: serverUrl="www.
+      name: this is the sitename which is defined in <site> element in sitecore web.config file.
+      filename: the xml sitemap file name. This file name will be inserted into robots.txt file.
+      --><site name="website_1" filename="sitemap1.xml" serverUrl="www.site1domain.com" /><site name="website_2" filename="sitemap2.xml" serverUrl="www.site2domain.com" /></sites></sitemapVariables>
+        So now instead of pointing to the site root path you now use the site names found in the web.config.
+   4. Open the Sitecore backend.
+        Open the Content Editor and navigate to /sitecore/content/System/modules/Sitemap manager/Sitemap configuration item.
+sitemap configuration
+
+
+This item provides the ability to set which search engines will be used. SitemapXml module contains three predefined search engines (Google, Live search, Yahoo). You can add your own search engine by adding the new “Sitemap search engine” item and specifying “HttpRequestString”.
+  5.  In the Configuration section of the Sitemap configuration item you can set which templates that you want the sitemap to contain and which ones that shouldn't be indexed.
+Include items
+included templates
+Exclude items
+excluded templates
+  6. Sitemap will be generated and submitted after publishing. Also you can submit sitemap manual. Run the Sitemap Manager application (sitecore menu/all programs/sitemap manager) and click “Refresh sitemap” button.</PackageReadme>
+    <PackageVersion>1.0</PackageVersion>
+    <SitecoreAssemblyPath>C:\inetpub\wwwroot\sc80rev150621\Website\bin</SitecoreAssemblyPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>false</DebugSymbols>
@@ -137,27 +175,23 @@
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
     </SitecoreItem>
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Search Engines.item">
+      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Search Engines\Bing.item">
+      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Search Engines\Google.item">
+      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Search Engines\Yahoo.item">
+      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+    </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Website.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Website\Search Engines.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Website\Search Engines\Bing.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Website\Search Engines\Google.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Website\Search Engines\Yahoo.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Website\Shared Content.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
@@ -178,26 +212,6 @@
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\Branches\Sitemap XML\Sitemap Configuration\%2524name.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Branches\Sitemap XML\Sitemap Configuration\%2524name\Search Engines.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Branches\Sitemap XML\Sitemap Configuration\%2524name\Search Engines\Bing.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Branches\Sitemap XML\Sitemap Configuration\%2524name\Search Engines\Google.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Branches\Sitemap XML\Sitemap Configuration\%2524name\Search Engines\Yahoo.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Branches\Sitemap XML\Sitemap Configuration\%2524name\Shared Content.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
@@ -297,6 +311,9 @@
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
+  </ItemGroup>
+  <ItemGroup>
+    <ExcludedAssemblies Include="Sitecore.%2a.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\HedgehogDevelopment\SitecoreProject\v9.0\HedgehogDevelopment.SitecoreProject.targets" />
 </Project>

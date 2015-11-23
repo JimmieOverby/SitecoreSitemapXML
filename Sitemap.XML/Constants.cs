@@ -11,7 +11,6 @@ namespace Sitemap.XML
         {
             public static string ParentItemFieldName = "Parent Item";
             public static string ContentLocationFieldName = "Content Location";
-            public static string FolderName = "Shared Content";
         }
 
         public struct WebsiteDefinition
