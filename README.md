@@ -33,13 +33,13 @@ Installation and Configuration Options
 ------------------------------------------
 
 
-	1.  Install the package using the Update Installation Wizard (/sitecore/admin/updateinstallationwizard.aspx)
-	2. Open the SitemapXML.config under the App_Config\Include folder. In the SitemapXML.config file you can specify the following:
-		○ productionEnvironment - (true or false) determines whether the sitemap should be submitted to the search engines or not
-		○ Database - the database from which to pull items for generating the sitemap
-		○ sitemapConfigurationItemPath - root path for the sitemap module configuration settings
-		○ xmlnsTpl - sitemap module schema used for the XML sitemap
-		○ generateRobotsFile - (true or false) defines whether a robots.txt file should be auto-generated with references to sitemap files or not.
+1.	Install the package using the Update Installation Wizard (/sitecore/admin/updateinstallationwizard.aspx)
+2.	Open the SitemapXML.config under the App_Config\Include folder. In the SitemapXML.config file you can specify the following:
+	○ productionEnvironment - (true or false) determines whether the sitemap should be submitted to the search engines or not
+	○ Database - the database from which to pull items for generating the sitemap
+	○ sitemapConfigurationItemPath - root path for the sitemap module configuration settings
+	○ xmlnsTpl - sitemap module schema used for the XML sitemap
+	○ generateRobotsFile - (true or false) defines whether a robots.txt file should be auto-generated with references to sitemap files or not.
 
 The following are the default values:
 
@@ -52,20 +52,19 @@ The following are the default values:
     </sitemapVariables>
 
 
-	4. Open the Sitecore Content Editor.
-	5. Navigate to /sitecore/content/System/modules/Sitemap XML/.
-	6. Create a Sitemap Configuration item and name it with the same name as the website name attribute in the <site />  definition for your website (Non-case sensitive). 
+4.	Open the Sitecore Content Editor.
+5.	Navigate to /sitecore/content/System/modules/Sitemap XML/.
+6.	Create a Sitemap Configuration item and name it with the same name as the website name attribute in the <site />  definition for your website (Non-case sensitive). 
 	
 	This item will contain all of the website-specific configuration used by the module. 
-	
-	7. Set which search engines will be used for submitting the XML Sitemap in the Search Engines field(you can add your own search engine by adding the new “Sitemap Search engine” item under the Sitemap XML Search Engines folder and specifying the “Sitemap Submission Url” path.
-	8. In the Configuration section of the Sitemap configuration item you can set the following:
-		a. Search Engines - select the search engine to submit the sitemap to
-		b. Enabled Templates - templates to be included in the sitemap
-		c. Excluded Items - individual items to be excluded from the sitemap
-		d. File Name - the name of the sitemap XML file file which will be saved in the root Website directory
-		e. Server Url - the server URL to be used in the sitemap URLs. The module falls back to using the server URL which was used to request the sitemap.
+7.	Set which search engines will be used for submitting the XML Sitemap in the Search Engines field(you can add your own search engine by adding the new “Sitemap Search engine” item under the Sitemap XML Search Engines folder and specifying the “Sitemap Submission Url” path.
+8.	In the Configuration section of the Sitemap configuration item you can set the following:
+	a. Search Engines - select the search engine to submit the sitemap to
+	b. Enabled Templates - templates to be included in the sitemap
+	c. Excluded Items - individual items to be excluded from the sitemap
+	d. File Name - the name of the sitemap XML file file which will be saved in the root Website directory
+	e. Server Url - the server URL to be used in the sitemap URLs. The module falls back to using the server URL which was used to request the sitemap.
 
-	9. To include shared content in the sitemap add a Shared Content Definition item under the Sitemap Configuration item for the website in question and specify the Parent Item (parent content item) and Content Location (the parent item for the shared content).
-	10. Sitemap will be generated and submitted after publishing (if productionEnvironment setting is set to true). Also you can submit sitemap manually. Run the Sitemap Manager application (sitecore menu/all programs/sitemap manager) and click “Refresh sitemap” button.
+9. 	To include shared content in the sitemap add a Shared Content Definition item under the Sitemap Configuration item for the website in question and specify the Parent Item (parent content item) and Content Location (the parent item for the shared content).
+10. Sitemap will be generated and submitted after publishing (if productionEnvironment setting is set to true). Also you can submit sitemap manually. Run the Sitemap Manager application (sitecore menu/all programs/sitemap manager) and click “Refresh sitemap” button.
 
