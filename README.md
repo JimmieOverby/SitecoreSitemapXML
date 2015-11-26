@@ -42,7 +42,7 @@ Installation and Configuration Options
 	○ generateRobotsFile - (true or false) defines whether a robots.txt file should be auto-generated with references to sitemap files or not.
 
 The following are the default values:
-
+```
 <sitemapVariables>
       <sitemapVariable name="xmlnsTpl" value="http://www.sitemaps.org/schemas/sitemap/0.9" />
       <sitemapVariable name="database" value="master" />
@@ -50,7 +50,7 @@ The following are the default values:
       <sitemapVariable name="productionEnvironment" value="false" />
       <sitemapVariable name="generateRobotsFile" value="true" />
     </sitemapVariables>
-
+```
 
 4.	Open the Sitecore Content Editor.
 5.	Navigate to /sitecore/content/System/modules/Sitemap XML/.
