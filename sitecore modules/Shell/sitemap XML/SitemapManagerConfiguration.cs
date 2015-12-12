@@ -84,6 +84,23 @@ namespace Sitecore.Modules.SitemapXML
                 return !string.IsNullOrEmpty(production) && (production.ToLower() == "true" || production == "1");
             }
         }
+
+        public static bool GenerateRobotsTxt
+        {
+            get
+            {
+                string generateRobotsTxt = GetValueByName("generateRobotsTxt");
+                return !string.IsNullOrEmpty(generateRobotsTxt) && (generateRobotsTxt.ToLower() == "true" || generateRobotsTxt == "1");
+            }
+        }
+
+        public static string SitemapIndexFilename
+        {
+            get
+            {
+                return GetValueByName("sitemapIndexFilename");
+            }
+        }
         #endregion properties
 
         private static string GetValueByName(string name)

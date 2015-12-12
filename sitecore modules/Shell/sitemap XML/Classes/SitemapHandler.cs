@@ -35,7 +35,10 @@ namespace Sitecore.Modules.SitemapXML
             SitemapManager sitemapManager = new SitemapManager();
 
             sitemapManager.SubmitSitemapToSearchenginesByHttp();
-            sitemapManager.RegisterSitemapToRobotsFile();
+            if (SitemapManagerConfiguration.GenerateRobotsTxt)
+            {
+                sitemapManager.RegisterSitemapToRobotsFile();
+            }
 
         }
     }
