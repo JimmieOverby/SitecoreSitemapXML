@@ -85,7 +85,7 @@ The following are the default values:
     <RecursiveDeployAction>Ignore</RecursiveDeployAction>
     <EnableValidations>False</EnableValidations>
     <ValidationSettingsFilePath>.\Sitemap.XML.Master_Release.xml</ValidationSettingsFilePath>
-    <PackageName>Ultimate Sitemap.XML 1.0</PackageName>
+    <PackageName>Ultimate Sitemap.XML 1.1</PackageName>
     <GeneratePackage>True</GeneratePackage>
     <SeperateFilesAndItems>False</SeperateFilesAndItems>
     <PackageExcludeCode>False</PackageExcludeCode>
@@ -122,7 +122,7 @@ The following are the default values:
 		e. Server Url - the server URL to be used in the sitemap URLs. The module falls back to using the server URL which was used to request the sitemap.
 
 	7. Sitemap will be generated and submitted after publishing (if productionEnvironment setting is set to true). Also you can submit sitemap manually. Run the Sitemap Manager application (sitecore menu/all programs/sitemap manager) and click “Refresh sitemap” button.</PackageReadme>
-    <PackageVersion>1.0</PackageVersion>
+    <PackageVersion>1.1</PackageVersion>
     <SitecoreAssemblyPath>C:\inetpub\wwwroot\sc80rev150621\Website\bin</SitecoreAssemblyPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'DEV' ">
