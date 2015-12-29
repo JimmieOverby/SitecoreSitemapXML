@@ -203,7 +203,7 @@ namespace Sitemap.XML.Models
             using (new Sitecore.Security.Accounts.UserSwitcher(user))
             {
                 descendants = contentRoot.Axes.GetDescendants()
-                    .Where(i => i[Settings.GetSetting("Sitemap.XML.ExcludeItemFromSitemapFieldName", "Exclude From Sitemap")] != "1");
+                    .Where(i => i[Settings.GetSetting("Sitemap.XML.Fields.ExcludeItemFromSitemap", "Exclude From Sitemap")] != "1");
             }
 
             // getting shared content
@@ -327,7 +327,7 @@ namespace Sitemap.XML.Models
 
         public static bool IsExcludedItem(Item item)
         {
-            return item[Settings.GetSetting("Sitemap.XML.ExcludeItemFromSitemapFieldName", "Exclude From Sitemap")] == "1";
+            return item[Settings.GetSetting("Sitemap.XML.Fields.ExcludeItemFromSitemap", "Exclude From Sitemap")] == "1";
         }
 
         public static bool ContainsItemsToShow(IEnumerable<Item> items)

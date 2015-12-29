@@ -1,12 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿#region
+
+using Sitecore.Configuration;
+
+#endregion
 
 namespace Sitemap.XML
 {
     public struct Constants
     {
+        /// <summary>
+        /// The default values support the Sitemap XML Page Settings template fields.
+        /// These values can be overriden using the Sitemap.XML.Fields.* setting values in 
+        /// the SitemapXML.config configuration file.
+        /// </summary>
+        public struct SeoSettings
+        {
+            public static string Title = Settings.GetSetting("Sitemap.XML.Fields.Title", "Sitemap Title");
+            public static string Priority = Settings.GetSetting("Sitemap.XML.Fields.Priority", "Priority");
+            public static string ChangeFrequency = Settings.GetSetting("Sitemap.XML.Fields.ChangeFrequency", "Change Frequency");
+        }
+
         public struct SharedContent
         {
             public static string ParentItemFieldName = "Parent Item";
@@ -20,13 +33,6 @@ namespace Sitemap.XML
             public static string ExcludedItemsFieldName = "Excluded Items";
             public static string FileNameFieldName = "File Name";
             public static string ServerUrlFieldName = "Server Url";
-        }
-
-        public struct SeoSettings
-        {
-            public static string Title = "Sitemap Title";
-            public static string Priority = "Priority";
-            public static string ChangeFrequency = "Change Frequency";
         }
 
         public static string SitemapParserUser = @"extranet\Anonymous";
