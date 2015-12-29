@@ -193,26 +193,24 @@ namespace Sitemap.XML.Models
         private List<SitemapItem> GetSitemapItems(string rootPath)
         {
             string disTpls = _config.EnabledTemplates;
-            string exclNames = _config.ExcludeItems;
-
 
             Database database = Factory.GetDatabase(SitemapManagerConfiguration.WorkingDatabase);
 
             Item contentRoot = database.Items[rootPath];
 
-            Item[] descendants;
+            IEnumerable<Item> descendants;
             Sitecore.Security.Accounts.User user = Sitecore.Security.Accounts.User.FromName(Constants.SitemapParserUser, true);
             using (new Sitecore.Security.Accounts.UserSwitcher(user))
             {
-                descendants = contentRoot.Axes.GetDescendants();
+                descendants = contentRoot.Axes.GetDescendants()
+                    .Where(i => i[Settings.GetSetting("Sitemap.XML.ExcludeItemFromSitemapFieldName", "Exclude From Sitemap")] != "1");
             }
 
             // getting shared content
             var sharedModels = new List<SitemapItem>();
             var sharedDefinitions = Db.SelectItems(string.Format("fast:{0}/*", _config.SitemapConfigurationItemPath));
             var site = Factory.GetSite(_config.SiteName);
-            List<string> enabledTemplates = this.BuildListFromString(disTpls, '|');
-            List<string> excludedNames = this.BuildListFromString(exclNames, '|');
+            var enabledTemplates = BuildListFromString(disTpls, '|');
             foreach (var sharedDefinition in sharedDefinitions)
             {
                 if (string.IsNullOrWhiteSpace(sharedDefinition[Constants.SharedContent.ContentLocationFieldName]) ||
@@ -239,19 +237,17 @@ namespace Sitemap.XML.Models
                 }
 
                 var cleanedSharedItems = from itm in sharedItems
-                                         where itm.Template != null && enabledTemplates.Select(t => t.ToLower()).Contains(itm.Template.ID.ToString().ToLower()) &&
-                                               !excludedNames.Select(t => t.ToLower()).Contains(itm.ID.ToString().ToLower())
+                                         where itm.Template != null && enabledTemplates.Select(t => t.ToLower()).Contains(itm.Template.ID.ToString().ToLower())
                                          select itm;
                 var sharedSitemapItems = cleanedSharedItems.Select(i => new SitemapItem(i, site, parentItem));
                 sharedModels.AddRange(sharedSitemapItems);
             }
 
-            List<Item> sitemapItems = descendants.ToList();
+            var sitemapItems = descendants.ToList();
             sitemapItems.Insert(0, contentRoot);
 
             var selected = from itm in sitemapItems
-                           where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
-                                 !excludedNames.Contains(itm.ID.ToString())
+                           where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString())
                            select itm;
 
             var selectedModels = selected.Select(i => new SitemapItem(i, site, null)).ToList();
@@ -259,14 +255,14 @@ namespace Sitemap.XML.Models
             return selectedModels;
         }
 
-        private List<string> BuildListFromString(string str, char separator)
+        private static List<string> BuildListFromString(string str, char separator)
         {
-            string[] enabledTemplates = str.Split(separator);
+            var enabledTemplates = str.Split(separator);
             var selected = from dtp in enabledTemplates
                            where !string.IsNullOrEmpty(dtp)
                            select dtp;
 
-            List<string> result = selected.ToList();
+            var result = selected.ToList();
 
             return result;
         }
@@ -329,17 +325,16 @@ namespace Sitemap.XML.Models
             return config.EnabledTemplates.ToLower().Contains(item.TemplateID.ToGuid().ToString());
         }
 
-        public static bool IsDisabledItem(Item item)
+        public static bool IsExcludedItem(Item item)
         {
-            var config = new SitemapManagerConfiguration(Context.GetSiteName());
-            return config.ExcludeItems.ToLower().Contains(item.ID.ToGuid().ToString());
+            return item[Settings.GetSetting("Sitemap.XML.ExcludeItemFromSitemapFieldName", "Exclude From Sitemap")] == "1";
         }
 
         public static bool ContainsItemsToShow(IEnumerable<Item> items)
         {
             return items == null
                 ? false
-                : items.Any() && items.Any(IsEnabledTemplate) && items.Count(IsDisabledItem) < items.Count();
+                : items.Any() && items.Any(IsEnabledTemplate) && items.Count(IsExcludedItem) < items.Count();
         }
 
         #endregion

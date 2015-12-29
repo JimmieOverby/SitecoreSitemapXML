@@ -95,14 +95,6 @@ namespace Sitemap.XML.Models
             }
         }
 
-        public string ExcludeItems
-        {
-            get
-            {
-                return GetValueByNameFromDatabase(Constants.WebsiteDefinition.ExcludedItemsFieldName);
-            }
-        }
-
         public string ServerUrl
         {
             get

@@ -19,7 +19,7 @@ content-length: 38
 ----version----
 language: en
 version: 1
-revision: 58db5dd5-71cd-4733-8911-67bd10977021
+revision: 10136787-f38b-4c24-9174-c21811710137
 
 ----field----
 field: {6BF47032-530C-4DF3-9B29-0849E0990319}
@@ -32,13 +32,6 @@ content-length: 116
 field: {1452D535-BA8B-4A66-9A87-67D05A6E2058}
 name: Enabled Templates
 key: enabled templates
-content-length: 0
-
-
-----field----
-field: {76002E61-2397-4B4D-84B2-98C2A8468D5A}
-name: Excluded Items
-key: excluded items
 content-length: 0
 
 
@@ -67,9 +60,9 @@ sitecore\admin
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
-content-length: 15
+content-length: 16
 
-20090331T172600
+20090401T002600Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -83,14 +76,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-58db5dd5-71cd-4733-8911-67bd10977021
+10136787-f38b-4c24-9174-c21811710137
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 35
 
-20151123T061710:635838562302409946Z
+20151229T001409:635869448492981673Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

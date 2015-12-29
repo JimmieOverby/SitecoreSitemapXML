@@ -34,7 +34,7 @@
     foreach (Item child in childList)
     {
         var localChild = child;
-        if (SM.IsEnabledTemplate(localChild) && !SM.IsDisabledItem(localChild))
+        if (SM.IsEnabledTemplate(localChild) && !SM.IsExcludedItem(localChild))
         {
             @:<li>
             <a href="@(SM.IsChildUnderSharedLocation(localChild) ? 
@@ -49,7 +49,7 @@
         {
             @RecursiveSitemap(localChild)
         }
-        if (SM.IsEnabledTemplate(localChild) && !SM.IsDisabledItem(localChild))
+        if (SM.IsEnabledTemplate(localChild) && !SM.IsExcludedItem(localChild))
         {
             @:</li>
         }

@@ -13,7 +13,7 @@ namespace Sitemap.XML.Models
         public SitemapItem(Item item, SiteContext site, Item parentItem)
         {
             Priority = item[Constants.SeoSettings.Priority];
-            ChangeFrequency = item[Constants.SeoSettings.ChangeFrequency];
+            ChangeFrequency = item[Constants.SeoSettings.ChangeFrequency].ToLower();
             LastModified = HtmlEncode(item.Statistics.Updated.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz"));
             Id = item.ID.Guid;
             Title = item[Constants.SeoSettings.Title];
