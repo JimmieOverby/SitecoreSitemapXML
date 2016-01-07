@@ -252,6 +252,7 @@ namespace Sitemap.XML.Models
 
             var selectedModels = selected.Select(i => new SitemapItem(i, site, null)).ToList();
             selectedModels.AddRange(sharedModels);
+            selectedModels = selectedModels.OrderBy(u => u.Priority).Take(int.Parse(Settings.GetSetting("Sitemap.XML.UrlLimit", "1000"))).ToList();
             return selectedModels;
         }
 

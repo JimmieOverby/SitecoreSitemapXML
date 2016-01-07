@@ -10,17 +10,22 @@
         return;
     }
     var root = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.StartPath);
+    var count = 0;
     <div class="sitemap">
         <ul>
             <li><a href="@SitemapItem.GetItemUrl(root, Sitecore.Context.Site)">@root[Constants.SeoSettings.Title]</a>
-            @RecursiveSitemap(root)
+            @RecursiveSitemap(root, count)
             </li>
         </ul>
     </div>
 }
 
-@helper RecursiveSitemap(Item parentItem)
+@helper RecursiveSitemap(Item parentItem, int count)
 {
+    if (count >= int.Parse(Sitecore.Configuration.Settings.GetSetting("Sitemap.XML.UrlLimit", "1000")))
+    {
+        return;
+    }
     if (SM.IsShared(parentItem))
     {
         parentItem = SM.GetSharedParent(parentItem);
@@ -33,6 +38,7 @@
     }
     foreach (Item child in childList)
     {
+        count++;
         var localChild = child;
         if (SM.IsEnabledTemplate(localChild) && !SM.IsExcludedItem(localChild))
         {
@@ -47,7 +53,7 @@
         }
         if (localChild.Children.Count != 0)
         {
-            @RecursiveSitemap(localChild)
+            @RecursiveSitemap(localChild, count)
         }
         if (SM.IsEnabledTemplate(localChild) && !SM.IsExcludedItem(localChild))
         {
