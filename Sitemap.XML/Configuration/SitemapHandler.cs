@@ -1,9 +1,12 @@
-﻿using Sitecore;
+﻿#region
+
+using Sitecore;
+using Sitecore.Caching;
 using Sitecore.Diagnostics;
 using Sitecore.Pipelines.HttpRequest;
 using Sitemap.XML.Models;
-using System;
-using System.Web.Caching;
+
+#endregion
 
 namespace Sitemap.XML.Configuration
 {
@@ -18,7 +21,7 @@ namespace Sitemap.XML.Configuration
 
         public override void Process(HttpRequestArgs args)
         {
-            Assert.ArgumentNotNull((object)args, "args");
+            Assert.ArgumentNotNull(args, "args");
             if (Context.Site == null || string.IsNullOrEmpty(Context.Site.RootPath.Trim())) return;
             if (Context.Page.FilePath.Length > 0) return;
 
@@ -29,20 +32,20 @@ namespace Sitemap.XML.Configuration
             args.Context.Response.ClearContent();
             args.Context.Response.ContentType = "text/xml";
 
-            // Checking the cache first
-            var sitemapXmlCache = args.Context.Cache["sitemapxml"];
-            if (sitemapXmlCache != null)
+            // Checking the HTML cache first
+            var site = Context.Site;
+            var cacheKey = "UltimateSitemapXML_" + site.Name;
+            var cache = CacheManager.GetHtmlCache(site).GetHtml(cacheKey);
+            if (!string.IsNullOrWhiteSpace(cache))
             {
-                args.Context.Response.Write(sitemapXmlCache.ToString());
+                args.Context.Response.Write(cache);
                 args.Context.Response.End();
                 return;
             }
 
             var content = string.Empty;
-
             try
             {
-                var site = Context.Site;
                 var config = new SitemapManagerConfiguration(site.Name);
                 var sitemapManager = new SitemapManager(config);
 
@@ -51,11 +54,7 @@ namespace Sitemap.XML.Configuration
             }
             finally
             {
-                args.Context.Cache.Add("sitemapxml", content, null,
-                              DateTime.Now.AddSeconds(int.Parse(CacheTime)),
-                              Cache.NoSlidingExpiration,
-                              CacheItemPriority.Normal,
-                              null);
+                CacheManager.GetHtmlCache(site).SetHtml(cacheKey, content);
                 args.Context.Response.Flush();
                 args.Context.Response.End();
             }
