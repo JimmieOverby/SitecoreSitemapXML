@@ -36,6 +36,7 @@
         <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Configuration/{4D81B455-5970-4CCE-9C90-D797F19C8A00}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Configuration/Enabled templates/{1452D535-BA8B-4A66-9A87-67D05A6E2058}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Configuration/Exclude items/{76002E61-2397-4B4D-84B2-98C2A8468D5A}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Configuration/Exclude by query/{61AADE4C-2E29-4E22-A041-FDEEB6B4CFA6}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Data/{AEEFC911-1513-4C35-B212-9299CDCA253F}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Sitemap XML/Sitemap configuration/Data/Search engines/{6BF47032-530C-4DF3-9B29-0849E0990319}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Sitemap XML/Sitemap searchengine/{122FF533-9564-4ADA-A1C8-E7B1385B89DE}/invariant/0</x-item>
