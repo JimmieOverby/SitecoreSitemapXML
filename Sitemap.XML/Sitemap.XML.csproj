@@ -24,6 +24,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,19 +49,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Sitecore.Buckets">
-      <HintPath>..\..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.Buckets.dll</HintPath>
+      <HintPath>..\..\..\..\..\inetpub\wwwroot\test\Website\bin\Sitecore.Buckets.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.ContentSearch">
-      <HintPath>..\..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.ContentSearch.dll</HintPath>
+      <HintPath>..\..\..\..\..\inetpub\wwwroot\test\Website\bin\Sitecore.ContentSearch.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.ContentSearch.Linq">
-      <HintPath>..\..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.ContentSearch.Linq.dll</HintPath>
+      <HintPath>..\..\..\..\..\inetpub\wwwroot\test\Website\bin\Sitecore.ContentSearch.Linq.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Kernel">
-      <HintPath>..\..\..\..\..\inetpub\wwwroot\tb\Website\bin\Sitecore.Kernel.dll</HintPath>
+      <HintPath>..\..\..\..\..\inetpub\wwwroot\test\Website\bin\Sitecore.Kernel.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

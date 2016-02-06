@@ -33,6 +33,7 @@ namespace Sitemap.XML
             public static string ExcludedItemsFieldName = "Excluded Items";
             public static string FileNameFieldName = "File Name";
             public static string ServerUrlFieldName = "Server Url";
+            public static string CleanupBucketPath = "Cleanup Bucket Path";
         }
 
         public static string SitemapParserUser = @"extranet\Anonymous";

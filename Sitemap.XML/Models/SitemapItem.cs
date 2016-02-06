@@ -47,10 +47,23 @@ namespace Sitemap.XML.Models
         {
             var itemUrl = HtmlEncode(GetItemUrl(item, site));
             var parentUrl = HtmlEncode(GetItemUrl(parentItem, site));
+            var siteConfig = new SitemapManagerConfiguration(site.Name);
             parentUrl = parentUrl.EndsWith("/") ? parentUrl : parentUrl + "/";
-            var pos = itemUrl.LastIndexOf("/") + 1;
-            var itemNamePath = itemUrl.Substring(pos, itemUrl.Length - pos);
-            return HtmlEncode(parentUrl + itemNamePath);
+            if (siteConfig.CleanupBucketPath)
+            {
+                var pos = itemUrl.LastIndexOf("/", StringComparison.Ordinal) + 1;
+                var itemNamePath = itemUrl.Substring(pos, itemUrl.Length - pos);
+                return HtmlEncode(parentUrl + itemNamePath);
+            }
+            else
+            {
+                var contentParentItem = SitemapManager.GetContentLocation(item);
+                if (contentParentItem == null) return null;
+                var contentParentItemUrl = HtmlEncode(GetItemUrl(contentParentItem, site));
+                if (string.IsNullOrWhiteSpace(contentParentItemUrl)) return string.Empty;
+                itemUrl = itemUrl.Replace(contentParentItemUrl, string.Empty);
+                return string.IsNullOrWhiteSpace(itemUrl) ? string.Empty : HtmlEncode(parentUrl + itemUrl.Trim('/'));
+            }
         }
 
         public static string GetSharedItemUrl(Item item, SiteContext site)
@@ -89,6 +102,10 @@ namespace Sitemap.XML.Models
             if (serverUrl.Contains("http://"))
             {
                 serverUrl = serverUrl.Substring("http://".Length);
+            }
+            else if (serverUrl.Contains("https://"))
+            {
+                serverUrl = serverUrl.Substring("https://".Length);
             }
 
             StringBuilder sb = new StringBuilder();

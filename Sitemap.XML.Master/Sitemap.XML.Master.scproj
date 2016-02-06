@@ -77,7 +77,7 @@ The following are the default values:
 	
 	</PackageReadme>
     <PackageVersion>1.0</PackageVersion>
-    <SitecoreAssemblyPath>C:\inetpub\wwwroot\sc80rev150621\Website\bin</SitecoreAssemblyPath>
+    <SitecoreAssemblyPath>C:\inetpub\wwwroot\test\Website\bin</SitecoreAssemblyPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>false</DebugSymbols>

@@ -86,7 +86,11 @@ namespace Sitemap.XML.Models
 
         private static Item GetContextSiteDefinitionItem()
         {
-            var sitemapModuleItem = Context.Database.GetItem(Constants.SitemapModuleSettingsRootItemId);
+            var database = Context.Database;
+#if DEBUG
+            database = Factory.GetDatabase("master");
+#endif
+            var sitemapModuleItem = database.GetItem(Constants.SitemapModuleSettingsRootItemId);
             var contextSite = Context.GetSiteName().ToLower();
             if (!sitemapModuleItem.Children.Any()) return null;
             var siteNode = sitemapModuleItem.Children.FirstOrDefault(i => i.Key == contextSite);
@@ -293,13 +297,14 @@ namespace Sitemap.XML.Models
             return siteDefinition != null;
         }
 
-        public static Item GetSharedParent(Item item)
+        public static Item GetContentLocation(Item item)
         {
             var sharedNodes = GetSharedContentDefinitions();
-            var sharedParent = sharedNodes.FirstOrDefault(i => ((DatasourceField)i.Fields[Constants.SharedContent.ParentItemFieldName]).TargetItem.ID == item.ID);
-            var sharedLocation = sharedParent != null ? ((DatasourceField)sharedParent.Fields[Constants.SharedContent.ContentLocationFieldName]).TargetItem : null;
-
-            return sharedLocation;
+            var contentParent = sharedNodes
+                .Where(n => ((DatasourceField)n.Fields[Constants.SharedContent.ContentLocationFieldName]).TargetItem.Axes.IsAncestorOf(item))
+                .Select(n => ((DatasourceField)n.Fields[Constants.SharedContent.ContentLocationFieldName]).TargetItem)
+                .FirstOrDefault();
+            return contentParent;
         }
 
         public static bool IsChildUnderSharedLocation(Item child)

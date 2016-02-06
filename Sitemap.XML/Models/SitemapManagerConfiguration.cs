@@ -38,8 +38,6 @@ namespace Sitemap.XML.Models
     {
         #region Fields
 
-        private readonly string _siteName = string.Empty;
-
         #endregion
 
         #region Constructor 
@@ -47,7 +45,7 @@ namespace Sitemap.XML.Models
         public SitemapManagerConfiguration(string siteName)
         {
             Assert.IsNotNullOrEmpty(siteName, "siteName");
-            _siteName = siteName;
+            SiteName = siteName;
         }
 
         #endregion
@@ -74,7 +72,7 @@ namespace Sitemap.XML.Models
         {
             get
             {
-                return GetValueByName("sitemapConfigurationItemPath")+_siteName;
+                return GetValueByName("sitemapConfigurationItemPath")+SiteName;
             }
         }
 
@@ -87,13 +85,9 @@ namespace Sitemap.XML.Models
             }
         }
 
-        public string EnabledTemplates
-        {
-            get
-            {
-                return GetValueByNameFromDatabase(Constants.WebsiteDefinition.EnabledTemplatesFieldName);
-            }
-        }
+        public string EnabledTemplates => GetValueByNameFromDatabase(Constants.WebsiteDefinition.EnabledTemplatesFieldName);
+
+        public bool CleanupBucketPath => GetValueByNameFromDatabase(Constants.WebsiteDefinition.CleanupBucketPath) == "1";
 
         public string ServerUrl
         {
@@ -101,7 +95,7 @@ namespace Sitemap.XML.Models
             {
                 var url =  GetValueByNameFromDatabase(Constants.WebsiteDefinition.ServerUrlFieldName);
                 return string.IsNullOrWhiteSpace(url) ? HttpContext.Current.Request.Url.Scheme+"://" 
-                    +Context.Site.Properties["hostname"] : url;
+                    +Context.Site.Properties["hostname"] : url.Trim('/');
             }
         }
 
@@ -109,44 +103,28 @@ namespace Sitemap.XML.Models
         {
             get
             {
-                string production = GetValueByName("productionEnvironment");
+                var production = GetValueByName("productionEnvironment");
                 return !string.IsNullOrEmpty(production) && (production.ToLower() == "true" || production == "1");
             }
         }
 
-        public string SiteName
-        {
-            get
-            {
-                return _siteName;
-            }
-        }
+        public string SiteName { get; } = string.Empty;
 
-        public string FileName
-        {
-            get
-            {
-                return GetValueByNameFromDatabase(Constants.WebsiteDefinition.FileNameFieldName);
-            }
-        }
-             
-        
+        public string FileName => GetValueByNameFromDatabase(Constants.WebsiteDefinition.FileNameFieldName);
+
         #endregion properties
 
         #region Private Methods
 
         private static string GetValueByName(string name)
         {
-            string result = string.Empty;
+            var result = string.Empty;
 
             foreach (XmlNode node in Factory.GetConfigNodes("sitemapVariables/sitemapVariable"))
             {
-
-                if (XmlUtil.GetAttribute("name", node) == name)
-                {
-                    result = XmlUtil.GetAttribute("value", node);
-                    break;
-                }
+                if (XmlUtil.GetAttribute("name", node) != name) continue;
+                result = XmlUtil.GetAttribute("value", node);
+                break;
             }
 
             return result;

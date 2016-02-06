@@ -34,6 +34,7 @@ namespace Sitemap.XML.Configuration
 
             // Checking the HTML cache first
             var site = Context.Site;
+#if !DEBUG
             var cacheKey = "UltimateSitemapXML_" + site.Name;
             var cache = CacheManager.GetHtmlCache(site).GetHtml(cacheKey);
             if (!string.IsNullOrWhiteSpace(cache))
@@ -42,6 +43,7 @@ namespace Sitemap.XML.Configuration
                 args.Context.Response.End();
                 return;
             }
+#endif
 
             var content = string.Empty;
             try
@@ -54,7 +56,9 @@ namespace Sitemap.XML.Configuration
             }
             finally
             {
+#if !DEBUG
                 CacheManager.GetHtmlCache(site).SetHtml(cacheKey, content);
+#endif
                 args.Context.Response.Flush();
                 args.Context.Response.End();
             }

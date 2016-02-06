@@ -28,7 +28,7 @@
     }
     if (SM.IsShared(parentItem))
     {
-        parentItem = SM.GetSharedParent(parentItem);
+        parentItem = SM.GetContentLocation(parentItem);
     }
     var childList = parentItem.Children;
 
@@ -49,7 +49,7 @@
         }
         if (SM.IsShared(localChild))
         {
-            localChild = SM.GetSharedParent(localChild);
+            localChild = SM.GetContentLocation(localChild);
         }
         if (localChild.Children.Count != 0)
         {
