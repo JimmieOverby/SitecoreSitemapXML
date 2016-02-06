@@ -1,33 +1,33 @@
 ----item----
 version: 1
-id: {56932873-693C-4009-B944-2A0964778393}
+id: {EC833FF6-3E2D-444F-8FF2-9F921265A16C}
 database: master
-path: /sitecore/media library/Sitemap XML
-parent: {3D6658D8-A0BF-4E75-B3E2-D050FABCF4E1}
-name: Sitemap XML
+path: /sitecore/templates/Sitemap/Shared Content Definition/__Standard Values
+parent: {CB547F2D-4C51-4AB3-824C-03439FB89FA6}
+name: __Standard Values
 master: {00000000-0000-0000-0000-000000000000}
-template: {FE5DD826-48C6-436D-B87A-7C4210C7413B}
-templatekey: Media folder
+template: {CB547F2D-4C51-4AB3-824C-03439FB89FA6}
+templatekey: Shared Content Definition
 
-----field----
-field: {06D5295C-ED2F-4A54-9BF2-26228D113318}
-name: __Icon
-key: __icon
-content-length: 21
-
-apps/32x32/routes.png
 ----version----
 language: en
 version: 1
-revision: d1babe0f-90aa-4100-9306-20828d239c02
+revision: 0f3ba52b-6f87-41c8-974d-ee0908a9663d
 
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
 content-length: 16
 
-20160107T195423Z
+20150901T002930Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -41,14 +41,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-d1babe0f-90aa-4100-9306-20828d239c02
+0f3ba52b-6f87-41c8-974d-ee0908a9663d
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20160206T071157Z
+20150901T002930Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

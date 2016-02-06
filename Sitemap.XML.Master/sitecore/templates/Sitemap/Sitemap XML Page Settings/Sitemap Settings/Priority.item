@@ -1,0 +1,72 @@
+----item----
+version: 1
+id: {DC4B01BB-3C44-4510-9874-FF98621FABFC}
+database: master
+path: /sitecore/templates/Sitemap/Sitemap XML Page Settings/Sitemap Settings/Priority
+parent: {E501763B-B8C9-44AA-9509-40D04738DCA8}
+name: Priority
+master: {00000000-0000-0000-0000-000000000000}
+template: {455A3E98-A627-4B40-8035-E683A0331AC7}
+templatekey: Template field
+
+----field----
+field: {AB162CC0-DC80-4ABF-8871-998EE5D7BA32}
+name: Type
+key: type
+content-length: 16
+
+Single-Line Text
+----field----
+field: {BA3F86A2-4A1C-4D78-B63D-91C2779C1B5E}
+name: __Sortorder
+key: __sortorder
+content-length: 3
+
+100
+----field----
+field: {56776EDF-261C-4ABC-9FE7-70C618795239}
+name: __Help link
+key: __help link
+content-length: 125
+
+<link text="Schema.org Protocol" linktype="external" url="http://www.sitemaps.org/protocol.html" anchor="" target="_blank" />
+----version----
+language: en
+version: 1
+revision: ec06d16e-3afb-4ace-abc4-48656d5edbd0
+
+----field----
+field: {577F1689-7DE4-4AD2-A15F-7FDC1759285F}
+name: __Long description
+key: __long description
+content-length: 44
+
+Priority setting for the current page (0-1).
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20150831T205107Z
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+ec06d16e-3afb-4ace-abc4-48656d5edbd0
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20150831T205255Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin

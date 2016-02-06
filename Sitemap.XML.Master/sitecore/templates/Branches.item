@@ -61,7 +61,7 @@ ar|sitecore\Sitecore Client Maintaining|pe|+item:create|+item:delete|+item:publi
 ----version----
 language: da
 version: 1
-revision: 7a07e8ce-5194-4368-aa83-fee17f420a12
+revision: 8d50a20f-1c77-4798-b8dd-bc2ed75d648f
 
 ----field----
 field: {B5E02AD9-D56F-4C41-A065-A133DB87BDEB}
@@ -97,7 +97,7 @@ name: __Created
 key: __created
 content-length: 16
 
-20150621T112534Z
+20151207T115305Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -111,14 +111,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-7a07e8ce-5194-4368-aa83-fee17f420a12
+8d50a20f-1c77-4798-b8dd-bc2ed75d648f
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20150621T114006Z
+20151207T115305Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
@@ -129,7 +129,7 @@ sitecore\admin
 ----version----
 language: de-DE
 version: 1
-revision: 3467459f-edc7-4141-bbf4-acea0864c793
+revision: abbe343f-7868-4d90-8d10-a9636f278733
 
 ----field----
 field: {B5E02AD9-D56F-4C41-A065-A133DB87BDEB}
@@ -165,7 +165,7 @@ name: __Created
 key: __created
 content-length: 16
 
-20150621T111818Z
+20151207T115430Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -179,14 +179,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-3467459f-edc7-4141-bbf4-acea0864c793
+abbe343f-7868-4d90-8d10-a9636f278733
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20150621T114320Z
+20151207T115430Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
@@ -251,7 +251,7 @@ sitecore\admin
 ----version----
 language: ja-JP
 version: 1
-revision: ea0868bc-8e00-4f11-8edf-8dfcc1a2a57f
+revision: 7bf8e607-9b77-4d1f-a026-2c27d40e1b46
 
 ----field----
 field: {B5E02AD9-D56F-4C41-A065-A133DB87BDEB}
@@ -287,7 +287,7 @@ name: __Created
 key: __created
 content-length: 16
 
-20150621T113224Z
+20151207T115557Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -301,14 +301,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-ea0868bc-8e00-4f11-8edf-8dfcc1a2a57f
+7bf8e607-9b77-4d1f-a026-2c27d40e1b46
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20150621T114640Z
+20151207T115557Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

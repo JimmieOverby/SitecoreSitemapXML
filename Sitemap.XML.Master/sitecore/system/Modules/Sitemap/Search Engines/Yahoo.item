@@ -1,33 +1,40 @@
 ----item----
 version: 1
-id: {56932873-693C-4009-B944-2A0964778393}
+id: {B1549268-0C35-4F80-ACA2-A66979A130C5}
 database: master
-path: /sitecore/media library/Sitemap XML
-parent: {3D6658D8-A0BF-4E75-B3E2-D050FABCF4E1}
-name: Sitemap XML
+path: /sitecore/system/Modules/Sitemap/Search Engines/Yahoo
+parent: {2A4531F8-BB2B-4370-9343-BB8F9F10D42D}
+name: Yahoo
 master: {00000000-0000-0000-0000-000000000000}
-template: {FE5DD826-48C6-436D-B87A-7C4210C7413B}
-templatekey: Media folder
+template: {122FF533-9564-4ADA-A1C8-E7B1385B89DE}
+templatekey: Sitemap Search Engine
 
-----field----
-field: {06D5295C-ED2F-4A54-9BF2-26228D113318}
-name: __Icon
-key: __icon
-content-length: 21
-
-apps/32x32/routes.png
 ----version----
 language: en
 version: 1
-revision: d1babe0f-90aa-4100-9306-20828d239c02
+revision: 1d49ccc8-3ebc-4beb-a9f8-5b2a3a7a7686
 
+----field----
+field: {8D87E400-2450-4CDE-91B7-ED2F8183F909}
+name: Sitemap Submission Uri
+key: sitemap submission uri
+content-length: 64
+
+http://search.yahooapis.com/SiteExplorerService/V1/ping?sitemap=
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
-content-length: 16
+content-length: 15
 
-20160107T195423Z
+20090331T172700
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -41,14 +48,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-d1babe0f-90aa-4100-9306-20828d239c02
+1d49ccc8-3ebc-4beb-a9f8-5b2a3a7a7686
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20160206T071157Z
+20150901T001401Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

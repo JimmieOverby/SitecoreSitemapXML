@@ -1,25 +1,32 @@
 ----item----
 version: 1
-id: {56932873-693C-4009-B944-2A0964778393}
+id: {785AC7B4-D286-4ABE-B90D-E30F90DC6E8B}
 database: master
-path: /sitecore/media library/Sitemap XML
-parent: {3D6658D8-A0BF-4E75-B3E2-D050FABCF4E1}
-name: Sitemap XML
+path: /sitecore/templates/Sitemap/Change Frequency
+parent: {3BF9EE49-E693-45FE-B10D-D5D684484519}
+name: Change Frequency
 master: {00000000-0000-0000-0000-000000000000}
-template: {FE5DD826-48C6-436D-B87A-7C4210C7413B}
-templatekey: Media folder
+template: {AB86861A-6030-46C5-B394-E8F99E8B87DB}
+templatekey: Template
 
+----field----
+field: {12C33F3F-86C5-43A5-AEB4-5598CEC45116}
+name: __Base template
+key: __base template
+content-length: 38
+
+{1930BBEB-7805-471A-A3BE-4858AC7CF696}
 ----field----
 field: {06D5295C-ED2F-4A54-9BF2-26228D113318}
 name: __Icon
 key: __icon
-content-length: 21
+content-length: 19
 
-apps/32x32/routes.png
+Apps/32x32/Test.png
 ----version----
 language: en
 version: 1
-revision: d1babe0f-90aa-4100-9306-20828d239c02
+revision: f3473c10-1376-43af-8075-00a0f9af8b56
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -27,7 +34,7 @@ name: __Created
 key: __created
 content-length: 16
 
-20160107T195423Z
+20151228T232508Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -41,14 +48,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-d1babe0f-90aa-4100-9306-20828d239c02
+f3473c10-1376-43af-8075-00a0f9af8b56
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20160206T071157Z
+20160206T070719Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

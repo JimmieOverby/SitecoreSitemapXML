@@ -1,13 +1,13 @@
 ----item----
 version: 1
-id: {56932873-693C-4009-B944-2A0964778393}
+id: {122FF533-9564-4ADA-A1C8-E7B1385B89DE}
 database: master
-path: /sitecore/media library/Sitemap XML
-parent: {3D6658D8-A0BF-4E75-B3E2-D050FABCF4E1}
-name: Sitemap XML
+path: /sitecore/templates/Sitemap/Sitemap Search Engine
+parent: {3BF9EE49-E693-45FE-B10D-D5D684484519}
+name: Sitemap Search Engine
 master: {00000000-0000-0000-0000-000000000000}
-template: {FE5DD826-48C6-436D-B87A-7C4210C7413B}
-templatekey: Media folder
+template: {AB86861A-6030-46C5-B394-E8F99E8B87DB}
+templatekey: Template
 
 ----field----
 field: {06D5295C-ED2F-4A54-9BF2-26228D113318}
@@ -15,19 +15,26 @@ name: __Icon
 key: __icon
 content-length: 21
 
-apps/32x32/routes.png
+apps/32x32/search.png
 ----version----
 language: en
 version: 1
-revision: d1babe0f-90aa-4100-9306-20828d239c02
+revision: 8ffe7395-c5e8-40fe-82fa-e7c1138a5c86
 
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
-content-length: 16
+content-length: 15
 
-20160107T195423Z
+20090331T172400
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -41,14 +48,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-d1babe0f-90aa-4100-9306-20828d239c02
+8ffe7395-c5e8-40fe-82fa-e7c1138a5c86
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20160206T071157Z
+20160206T070251Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

@@ -9,10 +9,17 @@ master: {00000000-0000-0000-0000-000000000000}
 template: {7EE0975B-0698-493E-B3A2-0B2EF33D0522}
 templatekey: Rendering Folder
 
+----field----
+field: {06D5295C-ED2F-4A54-9BF2-26228D113318}
+name: __Icon
+key: __icon
+content-length: 21
+
+apps/32x32/routes.png
 ----version----
 language: en
 version: 1
-revision: 2734c35c-91e6-4c0d-a22f-aa345d0839e2
+revision: 875bf2a2-ec26-4bb5-a4ab-44dbf64e4770
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -27,14 +34,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-2734c35c-91e6-4c0d-a22f-aa345d0839e2
+875bf2a2-ec26-4bb5-a4ab-44dbf64e4770
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20151020T175907Z
+20160206T071307Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

@@ -236,59 +236,63 @@ The following are the default values:
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
       <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Change Frequencies.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Change Frequencies.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Change Frequencies\always.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Change Frequencies\always.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Change Frequencies\daily.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Change Frequencies\daily.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Change Frequencies\hourly.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Change Frequencies\hourly.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Change Frequencies\monthly.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Change Frequencies\monthly.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Change Frequencies\never.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Change Frequencies\never.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Change Frequencies\weekly.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Change Frequencies\weekly.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Change Frequencies\yearly.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Change Frequencies\yearly.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Search Engines.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Search Engines.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Search Engines\Bing.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Search Engines\Bing.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Search Engines\Google.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Search Engines\Google.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Search Engines\Yahoo.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Search Engines\Yahoo.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\system\Modules\Sitemap XML\Website.item">
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Website.item">
+      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\system\Modules\Sitemap\Website\Shared Content Definition.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
@@ -312,103 +316,107 @@ The following are the default values:
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Shared Content Definition.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Change Frequency.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Shared Content Definition\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Shared Content Definition.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Shared Content Definition\Shared Content.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Shared Content Definition\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Shared Content Definition\Shared Content\Content Location.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Shared Content Definition\Shared Content.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Shared Content Definition\Shared Content\Parent Item.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Shared Content Definition\Shared Content\Content Location.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Simple Text.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Shared Content Definition\Shared Content\Parent Item.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap configuration.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Configuration.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap configuration\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Configuration\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap configuration\Configuration.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Configuration\Configuration.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap configuration\Configuration\Enabled templates.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Configuration\Configuration\Cleanup Bucket Path.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap configuration\Configuration\File Name.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Configuration\Configuration\Enabled Templates.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap configuration\Configuration\Server Url.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Configuration\Configuration\File Name.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap configuration\Data.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Configuration\Configuration\Server Url.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap configuration\Data\Search engines.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Configuration\Data.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap Search Engine.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Configuration\Data\Search Engines.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap Search Engine\Data.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Search Engine.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap Search Engine\Data\Sitemap Submission Uri.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Search Engine\Data.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap XML Page Settings.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap Search Engine\Data\Sitemap Submission Uri.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap XML Page Settings\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap XML Page Settings.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap XML Page Settings\Sitemap Settings.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap XML Page Settings\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap XML Page Settings\Sitemap Settings\Change Frequency.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap XML Page Settings\Sitemap Settings.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap XML Page Settings\Sitemap Settings\Exclude From Sitemap.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap XML Page Settings\Sitemap Settings\Change Frequency.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap XML Page Settings\Sitemap Settings\Priority.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap XML Page Settings\Sitemap Settings\Exclude From Sitemap.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\Sitemap XML\Sitemap XML Page Settings\Sitemap Settings\Sitemap Title.item">
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap XML Page Settings\Sitemap Settings\Priority.item">
+      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\Sitemap\Sitemap XML Page Settings\Sitemap Settings\Sitemap Title.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
