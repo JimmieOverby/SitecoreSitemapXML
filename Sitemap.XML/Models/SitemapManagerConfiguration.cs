@@ -31,6 +31,7 @@ using Sitecore.Diagnostics;
 using System.Linq;
 using System.Collections.Generic;
 using Sitecore;
+using Sitecore.Sites;
 
 namespace Sitemap.XML.Models
 {
@@ -72,7 +73,16 @@ namespace Sitemap.XML.Models
         {
             get
             {
-                return GetValueByName("sitemapConfigurationItemPath")+SiteName;
+                var site = Factory.GetSite(SiteName); // GetSite(SiteName);
+                var sitemapPath = site.Properties["sitemapPath"];
+                if (string.IsNullOrWhiteSpace(sitemapPath))
+                {
+                    return GetValueByName("sitemapConfigurationItemPath") + SiteName;
+                }
+                else
+                {
+                    return sitemapPath;
+                }
             }
         }
 
