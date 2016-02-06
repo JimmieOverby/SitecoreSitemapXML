@@ -24,8 +24,10 @@ namespace Sitemap.XML.Configuration
             Assert.ArgumentNotNull(args, "args");
             if (Context.Site == null || string.IsNullOrEmpty(Context.Site.RootPath.Trim())) return;
             if (Context.Page.FilePath.Length > 0) return;
-
-            if (!args.Url.FilePath.Contains("sitemap.xml")) return;
+            var sitemapHandler = string.IsNullOrWhiteSpace(Context.Site.Properties["sitemapHandler"])
+                ? "sitemap.xml"
+                : Context.Site.Properties["sitemapHandler"];
+            if (!args.Url.FilePath.Contains(sitemapHandler)) return;
 
             // Important to return qualified XML (text/xml) for sitemaps
             args.Context.Response.ClearHeaders();
