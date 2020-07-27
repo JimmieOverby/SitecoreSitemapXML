@@ -32,8 +32,6 @@ using System.Text;
 using System.Linq;
 using System.Collections.Specialized;
 using System.Collections;
-using Sitecore.Globalization;
-using Sitecore.Data.Managers;
 
 namespace Sitecore.Modules.SitemapXML
 {
@@ -67,15 +65,10 @@ namespace Sitecore.Modules.SitemapXML
             SiteContext siteContext = Factory.GetSite(sitename);
             string rootPath = siteContext.StartPath;
 
-            var lang = LanguageManager.GetLanguage(siteContext.Language);
-
-            List<Item> items = GetSitemapItems(rootPath, lang);
+            List<Item> items = GetSitemapItems(rootPath);
 
 
-            var fullPath = sitemapUrlNew;
-            if (!fullPath.StartsWith("http") && !fullPath.StartsWith("/")){
-                fullPath = MainUtil.MapPath(string.Concat("/", sitemapUrlNew));
-            }
+            string fullPath = MainUtil.MapPath(string.Concat("/", sitemapUrlNew));
             string xmlContent = this.BuildSitemapXML(items, site);
 
             StreamWriter strWriter = new StreamWriter(fullPath, false);
@@ -273,7 +266,7 @@ namespace Sitecore.Modules.SitemapXML
         }
 
 
-        private List<Item> GetSitemapItems(string rootPath, Language lang)
+        private List<Item> GetSitemapItems(string rootPath)
         {
             string disTpls = SitemapManagerConfiguration.EnabledTemplates;
             string exclNames = SitemapManagerConfiguration.ExcludeItems;
@@ -281,7 +274,7 @@ namespace Sitecore.Modules.SitemapXML
 
             Database database = Factory.GetDatabase(SitemapManagerConfiguration.WorkingDatabase);
 
-            Item contentRoot = database.GetItem(rootPath, lang);
+            Item contentRoot = database.Items[rootPath];
             
             Item[] descendants;
             Sitecore.Security.Accounts.User user = Sitecore.Security.Accounts.User.FromName(@"extranet\Anonymous", true);
@@ -299,8 +292,7 @@ namespace Sitecore.Modules.SitemapXML
             var selected = from itm in sitemapItems
                            where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
                                     !excludedNames.Contains(itm.ID.ToString()) &&
-                                    !excludeFolderItems.Contains(itm.ID.ToString()) &&
-                                    itm["Disclude From Sitemap"] != "1"
+                                    !excludeFolderItems.Contains(itm.ID.ToString())
                            select itm;
 
             return selected.ToList();
