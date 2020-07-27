@@ -1,4 +1,4 @@
-﻿/* *********************************************************************** *
+/* *********************************************************************** *
  * File   : SitemapManagerConfiguration.cs                Part of Sitecore *
  * Version: 1.0.0                                         www.sitecore.net *
  *                                                                         *
@@ -65,6 +65,14 @@ namespace Sitecore.Modules.SitemapXML
             get
             {
                 return GetValueByNameFromDatabase("Enabled templates");
+            }
+        }
+
+        public static string ExcludeFolders
+        {
+            get
+            {
+                return GetValueByNameFromDatabase("Exclude folders");
             }
         }
 
