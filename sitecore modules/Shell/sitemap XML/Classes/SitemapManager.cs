@@ -1,4 +1,4 @@
-﻿/* *********************************************************************** *
+/* *********************************************************************** *
  * File   : SitemapManager.cs                             Part of Sitecore *
  * Version: 1.0.0                                         www.sitecore.net *
  *                                                                         *
@@ -270,12 +270,12 @@ namespace Sitecore.Modules.SitemapXML
         {
             string disTpls = SitemapManagerConfiguration.EnabledTemplates;
             string exclNames = SitemapManagerConfiguration.ExcludeItems;
-
+            string exclFolders = SitemapManagerConfiguration.ExcludeFolders;
 
             Database database = Factory.GetDatabase(SitemapManagerConfiguration.WorkingDatabase);
 
             Item contentRoot = database.Items[rootPath];
-
+            
             Item[] descendants;
             Sitecore.Security.Accounts.User user = Sitecore.Security.Accounts.User.FromName(@"extranet\Anonymous", true);
             using (new Sitecore.Security.Accounts.UserSwitcher(user))
@@ -287,14 +287,37 @@ namespace Sitecore.Modules.SitemapXML
 
             List<string> enabledTemplates = this.BuildListFromString(disTpls, '|');
             List<string> excludedNames = this.BuildListFromString(exclNames, '|');
-
+            List<string> excludeFolderItems = this.GetExcludeFolderItems(exclFolders, '|');
 
             var selected = from itm in sitemapItems
                            where itm.Template != null && enabledTemplates.Contains(itm.Template.ID.ToString()) &&
-                                    !excludedNames.Contains(itm.ID.ToString())
+                                    !excludedNames.Contains(itm.ID.ToString()) &&
+                                    !excludeFolderItems.Contains(itm.ID.ToString())
                            select itm;
 
             return selected.ToList();
+        }
+
+        private List<string> GetExcludeFolderItems(string str, char separator)
+        {
+            string[] excludedFolderIds = str.Split(separator);
+            var selected = from id in excludedFolderIds
+                           where !string.IsNullOrEmpty(id)
+                           select id;
+
+            List<string> folderIds = selected.ToList();
+
+            List<string> excludeIds = new List<string>();
+            excludeIds.AddRange(folderIds);
+
+            foreach (var folderId in folderIds)
+            {
+                var descendants = Db.GetItem(folderId)?.Axes.GetDescendants();
+                var descendantIds = descendants.Select(x => x.ID.ToString());
+                excludeIds.AddRange(descendantIds);
+            }
+
+            return excludeIds;
         }
 
         private List<string> BuildListFromString(string str, char separator)
